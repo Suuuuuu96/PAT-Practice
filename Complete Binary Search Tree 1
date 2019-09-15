@@ -1,0 +1,72 @@
+//Complete Binary Search Tree
+//https://www.nowcoder.com/questionTerminal/ab6b7429f9c34880837cf4830b2434df
+#include<iostream>
+#include<algorithm>
+using namespace std; 
+struct node{
+	int x;
+	node *l,*r;
+	node(int x0):x(x0),l(NULL),r(NULL){}
+};
+node* fun(int a[],int n)
+{
+	node *p;
+	if(!n)return NULL;
+	if(n==1)
+	{p=new node(a[0]);return p;}
+	int i,j,nu=0,sum=0;
+	
+	i=1;
+	nu=1;
+	sum=1;
+	while(sum<n)
+	{
+		nu=nu*2;
+		sum=sum+nu; 
+		i++;
+	}
+	j=nu/2-1;
+	if(sum-n>=nu/2)
+	j=j+(nu-sum+n);
+	else j=j+nu/2;
+	//j 7    
+	p=new node(a[j]);
+	p->l=fun(a,j);
+	p->r=fun(a+j+1,n-j-1);
+	return p;
+}
+void fu(node *p)
+{
+cout<<p->x<<' ';
+	if(p->l)fu(p->l);
+	
+	if(p->r)fu(p->r);
+}
+int main()
+{
+	int n,i,j,k,nu=0,sum=0,l=0,r=1,a[1011]={0};
+	node *p,*b[1011]={0};
+	//cout<<p->x;
+	cin>>n;
+	for(i=0;i<=n-1;i++)cin>>a[i];sort(a,a+n);
+	p=fun(a,n);
+	//fu(p);
+	l=-1;
+	r=0;
+	b[0]=p;
+	while(l!=r)
+	{
+		l++;
+		if(b[l]->l)b[++r]=b[l]->l;
+		if(b[l]->r)b[++r]=b[l]->r;
+		cout<<b[l]->x;
+		if(l!=r)cout<<' ';
+		
+	}
+	return 0; 
+}
+/*
+10
+4 5 6 7 1 2 3 8 9 0
+*/
+
