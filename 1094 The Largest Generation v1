@@ -1,0 +1,53 @@
+//1094 The Largest Generation
+//https://pintia.cn/problem-sets/994805342720868352/problems/994805372601090048
+#include<iostream>
+#include<vector>
+using namespace std; 
+int main()
+{
+	int n,i,j,k,m,m2,num=0,te,a[101]={0},l=-1,r=0,ce=1,mce=1,maxx=1;
+	string str;
+	cin>>n>>m;
+	vector<vector<int>> re(n+1,vector<int>(1,0));
+	vector<bool> f(n+1,false);
+	for(i=1;i<=m;i++)
+	{
+		cin>>k>>m2;
+		re[k][0]=m2;
+		for(j=1;j<=m2;j++){
+		cin>>te;f[te]=true;re[k].push_back(te);}
+	}
+	a[r]=1;
+	while(l<r)
+	{
+		te=r-l;
+		for(j=1;j<=te;j++){
+		l++;
+		int now=a[l];
+		if(!re[now][0])continue;
+		for(i=1;i<=re[now][0];i++)
+		a[++r]=re[now][i];
+		}
+		ce++;
+		if(r-l>maxx){maxx=r-l;mce=ce;}
+	}
+	cout<<maxx<<' '<<mce;
+	return 0; 
+}
+/*
+23 13
+21 1 23
+01 4 03 02 04 05
+03 3 06 07 08
+06 2 12 13
+13 1 21
+08 2 15 16
+02 2 09 10
+11 2 19 20
+17 1 22
+05 1 11
+07 1 14
+09 1 17
+10 1 18
+*/
+
