@@ -1,0 +1,9 @@
+#https://pintia.cn/problem-sets/994805260223102976/problems/994805291311284224
+n,p=map(int,input().split())
+a=list(map(int,input().split()))
+a.sort()     
+max0=0
+for i in range(n):
+    if p*a[i-max0]>=a[i]:
+        max0=max0+1
+print(max0)    
