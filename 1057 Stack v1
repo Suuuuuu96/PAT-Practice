@@ -1,0 +1,73 @@
+//https://pintia.cn/problem-sets/994805342720868352/problems/994805417945710592
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+int main() {
+	int n,i,j,k,t,m=0;
+	string s1;
+	cin>>n;
+	vector<int> a;
+	vector<int> soa;
+	vector<int> r;
+	for(i=0;i<=n-1;i++)
+	{
+		cin>>s1;
+		if(s1=="Push"){
+		cin>>t;
+		a.push_back(t);
+		
+		if(!m){r.push_back(0);soa.push_back(t);}
+		else {
+		for(j=m-1;j>=0;j--)
+		if(t<soa[j])break;
+		j++;
+		r.push_back(0);soa.push_back(0);
+		for(k=m;k>=j+1;k--)
+		{r[k]=r[k-1];soa[k]=soa[k-1];}
+		r[j]=m;soa[j]=t;
+		}
+		m++;
+		}
+		else if(s1=="Pop")
+		{
+			if(m==0)
+			//k++;
+			cout<<"Invalid"<<endl;
+			else 
+			{for(j=m-1;j>=0;j--)if(r[j]==m-1)break;
+			for(k=j;k<=m-2;k++){r[k]=r[k+1];soa[k]=soa[k+1];}
+			cout<<a[m-1]<<endl;
+			a.pop_back();r.pop_back();soa.pop_back();
+			
+			m--;}
+		}
+		else if(s1=="PeekMedian"){
+		if(m==0)
+			cout<<"Invalid"<<endl;
+			else 
+		cout<<soa[(m)/2]<<endl;
+	}
+	}
+	return 0;
+}
+/*
+17
+Pop
+PeekMedian
+Push 3
+PeekMedian
+Push 2
+PeekMedian
+Push 1
+PeekMedian
+Pop
+Pop
+Push 5
+Push 4
+PeekMedian
+Pop
+Pop
+Pop
+Pop
+*/
