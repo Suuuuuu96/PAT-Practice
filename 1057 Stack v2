@@ -1,4 +1,5 @@
 //https://pintia.cn/problem-sets/994805342720868352/problems/994805417945710592
+//使用树状数组+二分查找，应该是最好的方法之一
 #include<cstdio>
 #include<vector>
 using namespace std;
