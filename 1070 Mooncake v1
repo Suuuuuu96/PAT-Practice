@@ -1,0 +1,46 @@
+//https://pintia.cn/problem-sets/994805342720868352/problems/994805399578853376
+#include<cstdio>
+#include<algorithm>
+using namespace std;
+struct st{
+	float am;
+	float p;
+};
+bool fun(st x1,st x2)
+{return x1.p/x1.am>x2.p/x2.am;}
+int main()
+{
+	int n,i,j,a,b;
+	float sum=0,d;
+	st p0[1001];
+	scanf("%d%f",&n,&d);
+	for(i=1;i<=n;i++)
+		scanf("%f",&p0[i].am);
+	for(i=1;i<=n;i++)
+		scanf("%f",&p0[i].p);
+	sort(p0+1,p0+n+1,fun);
+	for(i=1;i<=n;i++)
+	{
+		if(d<=0)break;
+		if(p0[i].am<=d)
+		{
+			d=d-p0[i].am;
+			sum=sum+p0[i].p;
+		}
+		else {
+			sum=sum+p0[i].p*d/p0[i].am;
+			break;
+		}
+	}
+	printf("%.2f",sum);
+	return 0;
+}
+/*
+3 200
+180 150 100
+7.5 7.2 4.5
+
+3 200
+180 150 200
+7.5 7.2 15.5
+*/
