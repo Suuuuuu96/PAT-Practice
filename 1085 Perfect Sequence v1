@@ -1,0 +1,27 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	long p,a[100001]={0};
+	int i,n,m,max,k,l;
+	cin>>n>>p;
+	for(i=0;i<=n-1;i++)
+	cin>>a[i];
+	sort(a,a+n);
+	i=0;
+	max=0;
+	while(i+max<n)
+	{
+		if(a[i+max]>a[i]*p)
+			i++;
+		else 
+			max++;
+	}
+	cout<<max;
+	return 0;
+}
+/*
+10 8
+2 3 20 4 5 1 6 7 8 9
+*/
