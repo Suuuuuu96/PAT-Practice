@@ -1,0 +1,21 @@
+m=int(input())
+st=[]
+mi0=24*60*60
+ma0=0
+for i in range(m):
+    x,y,z=input().split()
+    st.append(x)
+    a,b,c=map(int,y.split(':'))
+    te=a*60*60+b*60+c
+    if te<mi0:mi0=te;i1=i
+    a,b,c=map(int,z.split(':'))
+    te=a*60*60+b*60+c
+    if te>ma0:ma0=te;i2=i
+print(st[i1],st[i2])
+'''
+https://pintia.cn/problem-sets/994805342720868352/problems/994805516654460928
+3
+CS301111 15:30:28 17:00:10
+SC3021234 08:00:00 11:25:25
+CS301133 21:45:00 21:58:40
+'''
