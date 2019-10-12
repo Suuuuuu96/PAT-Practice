@@ -1,0 +1,70 @@
+#include<cstdio>
+#include<iostream>
+#define N 10011
+struct tree{
+	int val;
+	tree *l,*r;
+};
+using namespace std;
+int a[11][3]={0};
+bool f=false;
+void fun(int root)
+{
+	if(a[root][2]!=-1)
+		fun(a[root][2]);
+	if(!f)
+		{f=true;printf("%d",root);}
+	else 
+		printf(" %d",root);
+	if(a[root][1]!=-1)
+		fun(a[root][1]);
+}
+int main()
+{
+	int i,n,j,v1,v2,root,l=-1,r=0;
+	bool fl[11]={false};
+	int qu[11]={0};
+	string s;
+	scanf("%d\n",&n);
+	for(i=0;i<=n-1;i++){
+		getline(cin,s);
+		if(s[0]-'0'>=0&&s[0]-'0'<=9)
+			{a[i][1]=s[0]-'0';fl[a[i][1]]=true;}
+		else 
+			a[i][1]=-1;
+		if(s[2]-'0'>=0&&s[2]-'0'<=9)
+			{a[i][2]=s[2]-'0';fl[a[i][2]]=true;}
+		else 
+			a[i][2]=-1;
+	}
+	for(i=0;i<=n-1;i++)
+		if(!fl[i])
+			break;
+	root=i;
+	qu[0]=root;
+	while(l!=r)
+	{
+		l++;
+		printf("%d",qu[l]);
+		if(a[qu[l]][2]!=-1)
+			qu[++r]=a[qu[l]][2];
+		if(a[qu[l]][1]!=-1)
+			qu[++r]=a[qu[l]][1];
+		if(l!=r)
+			printf(" ");
+	}
+	printf("\n");
+	fun(root);
+	return 0;
+}
+/*
+8
+1 -
+- -
+0 -
+2 7
+- -
+- -
+5 -
+4 6
+*/
