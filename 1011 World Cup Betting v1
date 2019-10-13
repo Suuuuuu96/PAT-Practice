@@ -1,0 +1,12 @@
+yi=1
+p=['W','T','L']
+for i in range(3):
+    a=list(map(float,input().split()))
+    yi=yi*max(a)
+    print(p[a.index(max(a))],end=' ')
+print(round((yi*0.65-1)*2,2))
+'''
+1.1 2.5 1.7
+1.2 3.1 1.6
+4.1 1.2 1.1
+'''
