@@ -1,0 +1,54 @@
+#include<iostream>
+#define N 2080
+using namespace std;
+bool fl=true;//堆为真，非堆为假 
+bool da=true;//大根堆为真，小根堆为假 
+int m,n;
+int a[N];
+void fun(int root)
+{
+	if(root>n)
+	return;
+	if(root*2<=n)
+		fun(root*2);
+	if(root*2+1<=n)
+		fun(root*2+1);
+	printf("%d",a[root]);
+	if(root!=1)
+		printf(" ");
+}
+int main()
+{
+	int i,j,k;
+	scanf("%d%d",&m,&n);
+	for(i=1;i<=m;i++)
+	{
+		scanf("%d%d",&a[1],&a[2]);
+		if(a[1]>a[2])
+			da=true;
+		else 
+			da=false;
+		fl=true;
+		if(n>=3)
+			for(j=3;j<=n;j++)
+			{
+				scanf("%d",&a[j]);
+				if(fl&&da&&a[j]>a[j/2]||fl&&!da&&a[j]<a[j/2])fl=false;
+			}
+		if(!fl)
+			printf("Not Heap\n");
+		else if(da)
+			printf("Max Heap\n");
+		else 
+			printf("Min Heap\n");
+		fun(1);
+		printf("\n");
+	}
+	return 0;
+}
+/*
+3 8
+98 72 86 60 65 12 23 50
+8 38 25 58 52 82 70 60
+10 28 15 12 34 9 8 56
+*/
