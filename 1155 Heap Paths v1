@@ -1,0 +1,75 @@
+//https://pintia.cn/problem-sets/994805342720868352/problems/1071785408849047552
+#include<cstdio>
+#include<string>
+#include<iostream>
+#define N 10011
+using namespace std;
+int a[2010];
+int n,m;//当前树的个数 
+bool fl=true;//true为大根堆 
+bool re=true;//true为根堆,false为非根堆 
+void fu(int x)
+{
+	if(x==1)
+	{
+		printf("%d",a[1]);
+		if(x*2<=n)
+			printf(" ");
+			return;
+	}
+	else
+	{
+		if(fl&&a[x]>a[x/2])
+			re=false;
+		else if(!fl&&a[x]<a[x/2])
+			re=false;
+		fu(x/2);
+		printf("%d",a[x]);
+		if(x*2<=n)
+			printf(" ");
+	}
+}
+int main()
+{
+	int i,j,k,v1,v2,root,l=-1,r=0,x;
+	scanf("%d\n",&n);
+	for(i=1;i<=n;i++)
+		cin>>a[i];
+	if(a[2]>a[1])
+		fl=false;
+	j=1; 
+	for(i=2;j<=n;i++)
+		j=j*2;
+	j=j/2-1;
+	for(k=j;k>=(j+1)/2;k--)
+	{
+		if(k*2+1<=n)
+		{
+			fu(k*2+1);
+			printf("\n");
+		}
+		if(k*2<=n)
+		{
+			fu(k*2);
+			printf("\n");
+		}
+		else 
+		{
+			fu(k);
+			printf("\n");
+		}
+	}
+	if(!re)
+		printf("Not Heap");
+	else if(fl)
+		printf("Max Heap");
+	else 
+		printf("Min Heap");
+	return 0;
+}
+/*
+8
+98 72 86 60 65 12 23 50
+10
+98 72 86 60 65 12 23 50 51 64
+*/
