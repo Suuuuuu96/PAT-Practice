@@ -1,0 +1,63 @@
+//https://pintia.cn/problem-sets/994805342720868352/problems/994805343043829760
+#include<iostream>
+#include<vector>
+#define N 1010
+#define M 10010
+#define K 110
+using namespace std;
+int main()
+{
+	int m,n;
+	int i,j,k,x,y,t;
+	bool lk[N]={false};
+	bool jia,fi=true;
+	vector<vector<int>> ed(N,vector<int>(1,0));
+	scanf("%d%d",&n,&m);
+	for(i=1;i<=m;i++)
+	{
+		scanf("%d%d",&x,&y);
+		ed[y].push_back(x);
+		ed[y][0]++;
+	}
+	scanf("%d",&k);
+	for(i=0;i<=k-1;i++)
+	{
+		for(j=0;j<=n;j++)
+			lk[j]=false;
+		jia=false;
+		for(j=1;j<=n;j++)
+		{
+			scanf("%d",&x);
+			for(t=1;t<=ed[x][0];t++)
+				if(!lk[ed[x][t]])
+					jia=true;
+			lk[x]=true;
+		}
+		if(jia)
+		{
+			if(fi)
+				fi=false;
+			else 
+				printf(" ");
+			printf("%d",i);
+		}
+	}
+	return 0;
+}
+/*
+6 8
+1 2
+1 3
+5 2
+5 4
+2 3
+2 6
+3 4
+6 4
+5
+1 5 2 3 6 4
+5 1 2 6 3 4
+5 1 2 3 6 4
+5 2 1 6 3 4
+1 2 3 4 5 6
+*/
