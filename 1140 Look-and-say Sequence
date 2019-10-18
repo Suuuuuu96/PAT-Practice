@@ -1,0 +1,44 @@
+//v1
+//https://pintia.cn/problem-sets/994805342720868352/problems/994805344490864640
+#include<string>
+#include<iostream>
+using namespace std;
+int main()
+{
+	int j,n;
+	string s;
+	cin>>s>>n;
+	for(int cnt=1;cnt<n;cnt++){
+		string t;
+		for(int i=0;i<s.length();i=j){
+			for(j=i;j<s.length()&&s[i]==s[j];j++);
+			t+=s[i]+to_string(j-i);
+		}
+		s=t;
+	}
+	
+	cout<<s;
+	return 0;
+}
+/*
+1 8
+*/
+
+#v2 Python
+def fun(str0):
+    n=len(str0);
+    if n==1:
+        return str0+'1';
+    re='';
+    j=0;
+    for i in range(1,n):
+        if str0[i] != str0[i-1]:
+            re=re+str0[i-1]+str(i-j);
+            j=i;
+    re=re+str0[n-1]+str(n-j);
+    return re;
+d,n=input().split()
+for i in range(int(n)-1):
+    d=fun(d)
+print(d)
+# 1 8
