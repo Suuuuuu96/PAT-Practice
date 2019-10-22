@@ -1,0 +1,24 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	int i,j,n,x;
+	float a[10009],sum=0;
+	scanf("%d",&n);
+	for(i=0;i<=n-1;i++)
+		scanf("%f",&a[i]);
+	sort(a,a+n);
+	sum=a[0];
+	for(i=1;i<=n-1;i++)
+	{
+		sum+=a[i];
+		sum/=2;
+	}
+	printf("%d",int(sum));
+	return 0;
+}
+/*
+8
+10 15 12 3 4 13 1 15
+*/
