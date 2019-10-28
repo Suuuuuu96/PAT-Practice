@@ -1,0 +1,102 @@
+//https://pintia.cn/problem-sets/994805342720868352/problems/994805362341822464
+
+//广度
+#include<iostream>
+#include<vector>
+#define N 100001
+using namespace std;
+vector<vector<int>> a(N,vector<int>(1,0));
+int main()
+{
+	int n;
+	int b[N]={0};
+	int i,j,x,k,l=-1,r=0,m=0,r0,sum=0;
+	double p,rx;
+	scanf("%d %lf %lf\n",&n,&p,&rx);
+	for(i=0;i<=n-1;i++){
+		scanf("%d",&k);
+		a[i][0]=k;
+		for(j=1;j<=k;j++){
+			scanf("%d",&x);
+			a[i].push_back(x);
+		}
+	}
+	b[r]=0;
+	while(l<r){
+		r0=r;
+		for(i=l+1;i<=r0;i++){
+			k=b[i];
+			if(a[k][0])
+				for(j=1;j<=a[k][0];j++)
+					b[++r]=a[k][j];
+			else 
+				m++;
+		}
+		if(m){
+			printf("%.4lf %d",p,m);
+			return 0;}
+		l=r0;
+		p=p*(100+rx)/100;
+	}
+}
+/*
+10 1.80 1.00
+3 2 3 5
+1 9
+1 4
+1 7
+0
+2 6 1
+1 8
+0
+0
+0
+
+9 1.00 2.00
+2 1 2
+2 5 6
+2 3 4
+0
+1 8
+0
+0
+0
+1 7
+*/
+
+//深度
+#include<iostream>
+#include<vector>
+#include<cmath>
+#define N 100010
+using namespace std;
+vector<int> a[N];
+int nu=0;
+int mindep=N;
+void fun(int root=0,int dep=0){
+	if(dep>mindep)
+		return ;
+	if(!a[root].size()){
+		if(dep<mindep){mindep=dep;nu=1;}
+		else nu++;
+	}
+	else for(int i=0;i<=a[root].size()-1;i++){
+		fun(a[root][i],dep+1);
+	}
+}
+int main(){
+	int n,m,i,x,j;
+	double p,r;
+	scanf("%d%lf%lf",&n,&p,&r);
+	for(i=0;i<=n-1;i++){
+		scanf("%d",&m);
+		if(m)
+		for(j=0;j<=m-1;j++){
+			scanf("%d",&x);
+			a[i].push_back(x);
+		}
+	}
+	fun();
+	printf("%.4lf %d",p*pow(1+r/100,mindep),nu);
+	return 0;
+}
