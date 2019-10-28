@@ -1,0 +1,57 @@
+//https://pintia.cn/problem-sets/994805342720868352/problems/994805355358306304
+#include<iostream>
+#include<cmath>
+#define N 10010
+using namespace std;
+bool isP(int x){
+	if(x==2)return true;
+	int k=sqrt(x);
+	for(int i=2;i<=k;i++)
+		if(x%i==0)
+			return false;
+	return true;		
+}
+int main()
+{
+	int n,k,i,j,x;
+	int a[N]={0};
+	bool vi[N]={false};
+	scanf("%d",&n);
+	for(i=1;i<=n;i++){
+		scanf("%d",&x);
+		a[x]=i;
+	}
+	scanf("%d",&k);
+	for(i=1;i<=k;i++){
+		scanf("%d",&x);
+		printf("%04d: ",x);
+		if(a[x]==0){
+			printf("Are you kidding?\n");continue;}
+		if(vi[x]){
+			printf("Checked\n");continue;}
+		vi[x]=true;
+		if(a[x]==1)
+			printf("Mystery Award\n");
+		else if(isP(a[x]))
+			printf("Minion\n");
+		else 
+			printf("Chocolate\n");
+	}
+	return 0;
+}
+/*
+6
+1111
+6666
+8888
+1234
+5555
+0001
+6
+8888
+0001
+1111
+2222
+8888
+6666
+*/
