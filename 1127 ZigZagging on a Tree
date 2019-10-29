@@ -1,0 +1,71 @@
+//https://pintia.cn/problem-sets/994805342720868352/problems/994805349394006016
+#include<iostream>
+#include<algorithm>
+#define N 32
+using namespace std;
+class tree{
+	public:
+	int x;
+	tree *l;
+	tree *r;
+	tree(int x0):x(x0),l(NULL),r(NULL){}
+};
+long a[N]={0};
+long b[N]={0};
+long nu[N]={0};
+long n;
+tree* bulit(long a1,long a2,long b1,long b2,long ce=1)
+{
+	if(a1>a2||b1>b2)return NULL;
+	tree *p=new tree(b[b2]);
+	nu[ce]++;
+	if(a1==a2)
+		return p;
+	int i;
+	for(i=a1;i<=a2;i++)
+		if(a[i]==b[b2])
+			break;
+	p->l=bulit(a1,i-1,b1,b1+i-a1-1,ce+1);
+	p->r=bulit(i+1,a2,b1+i-a1,b2-1,ce+1);
+	return p;
+}
+int main(){
+	long i,j,k=1,t,l=0,r=1,r0,r1,ce;
+	bool fl;
+	tree *root;
+	tree *p[N];
+	cin>>n;
+	for(i=1;i<=n;i++)
+		cin>>a[i];
+	for(i=1;i<=n;i++)
+		cin>>b[i];	
+	root=bulit(1,n,1,n);
+	p[1]=root;
+	while(l<r){
+		l++;
+		if(p[l]->l)p[++r]=p[l]->l;
+		if(p[l]->r)p[++r]=p[l]->r;
+	}
+	printf("%ld",p[1]->x);
+	ce=2;
+	k=1;
+	while(nu[ce])
+	{
+		for(i=k+1;i<=k+nu[ce];i++)
+			printf(" %ld",p[i]->x); 
+		k=k+nu[ce];
+		ce++;
+		if(nu[ce]){
+			for(i=k+nu[ce];i>=k+1;i--)
+				printf(" %ld",p[i]->x);
+			k=k+nu[ce];
+			ce++;
+		}
+	}
+	return 0;
+}
+/*
+8
+12 11 20 17 1 15 8 5
+12 20 17 11 15 8 5 1
+*/
