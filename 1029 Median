@@ -1,0 +1,37 @@
+#include<cstdio>
+#include<algorithm>
+#define N 200020
+using namespace std;
+int main(){
+	long a[N]={0},b[N]={0};
+	int i,j,n1,n2,n,k,sum=0;
+	bool fl;
+	scanf("%d",&n1);
+	for(i=1;i<=n1;i++)
+		scanf("%ld",&a[i]);
+	scanf("%d",&n2);
+	for(i=1;i<=n2;i++)
+		scanf("%ld",&b[i]);
+	k=(n1+n2-1)/2;
+	i=j=0;
+	while(sum<=k){
+		if(i==n1){
+			j++;sum++;
+		}
+		else if(j==n2){
+			i++;sum++;
+		}
+		else if(a[i+1]<b[j+1]){
+			i++;sum++;
+		}
+		else {
+			j++;sum++;
+		}
+	}
+	printf("%ld",max(b[j],a[i]));
+	return 0;
+}
+/*
+4 11 12 13 14
+5 9 10 15 16 17
+*/
