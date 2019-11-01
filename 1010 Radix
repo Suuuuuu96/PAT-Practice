@@ -1,0 +1,58 @@
+//https://pintia.cn/problem-sets/994805342720868352/problems/994805507225665536
+#include<bits/stdc++.h>
+using namespace std;
+long long fun0(string n1,long long radix){
+	long long i,n=n1.size(),re=0,j=1,t;
+	for(i=n-1;i>=0;i--){
+		t=isdigit(n1[i])?(n1[i]-'0'):(n1[i]-'a'+10);
+		re+=t*j;
+		j*=radix;
+	}
+	return re;
+}
+int main(){
+	string n1,n2;
+	long long tag,radix,i,j,n,sum1,sum2;
+	long long low,high,mid;
+	cin>>n1>>n2>>tag>>radix;
+	if(tag==2)
+		swap(n1,n2);//n2未知 
+	sum1=fun0(n1,radix);
+	low=*max_element(n2.begin(),n2.end());
+	low=isdigit(low)?(low-'0'):(low-'a'+10);
+  low++;
+	high=max(low,sum1);
+	while(low<=high){
+		mid=(low+high)/2;
+		sum2=fun0(n2,mid);
+		if(sum1==sum2){
+			cout<<mid;
+			return 0;
+		}
+		else if(sum2<0||sum1<sum2)
+			high=mid-1;
+		else
+			low=mid+1;
+	}
+	printf("Impossible");
+	return 0;
+}
+/*
+6 110 1 10
+
+1 ab 1 2
+
+59 111011 1 10
+
+6321 110 1 10
+
+11111 111 1 2
+
+50000 200 1 10
+
+50562 200 1 10
+159
+
+140608 1000 1 10
+52
+*/
