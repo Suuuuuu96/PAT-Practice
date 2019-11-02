@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+void fun(int i,int j){
+	char s[]={'A','B','C'};
+	if(i>=10)
+		cout<<s[i-10];
+	else 
+		cout<<i;
+	if(j>=10)
+		cout<<s[j-10];
+	else 
+		cout<<j;
+}
+int main(){
+	int a,b,c;
+	cin>>a>>b>>c;
+	cout<<'#';
+	fun(a/13,a%13);fun(b/13,b%13);fun(c/13,c%13);
+	return 0;
+}
+//15 43 71
