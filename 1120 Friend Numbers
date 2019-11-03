@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node{
+	int a;
+	bool f;
+	node(int a0=0,bool f0=false):a(a0),f(f0){}
+};
+int fun(int x){
+	int re=0;
+	while(x){
+		re+=x%10;
+		x=x/10;
+	}
+	return re;
+}
+int main(){
+	set<int> a;
+	bool fl[10001]={false};
+	int n,m,i,j,k,x;
+	cin>>n;
+	for(i=1;i<=n;i++){
+		cin>>x;
+		x=fun(x);a.insert(x);
+	}
+	cout<<a.size()<<endl;
+	auto it=a.begin();
+	printf("%d",*it);
+	for(it++;it!=a.end();it++)
+		printf(" %d",*it);
+	return 0;
+}
+/*
+8
+123 899 51 998 27 33 36 12
+
+*/
