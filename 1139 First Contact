@@ -1,0 +1,75 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node{
+	int a,b;
+	node(int a0=0,int b0=0):a(a0),b(b0){}
+};
+bool cmp(node x,node y){
+	return x.a!=y.a?x.a<y.a:x.b<y.b;
+} 
+int main(){
+	vector<int> a[10001];
+	unordered_map<int,bool> arr;
+	int n,m,i,j,k,x,n1,n2;
+	string x1,x2;
+	cin>>n>>m;
+	for(i=1;i<=m;i++){
+		cin>>x1>>x2;
+		n1=abs(stoi(x1));
+		n2=abs(stoi(x2));
+		if(x1.size()==x2.size()){
+			a[n1].push_back(n2);
+			a[n2].push_back(n1);
+		}
+		arr[10000*n1+n2]=true;
+		arr[10000*n2+n1]=true;
+	}
+	cin>>k;
+	for(i=1;i<=k;i++){
+		vector<node> re;
+		cin>>x1>>x2;
+		n1=abs(stoi(x1));
+		n2=abs(stoi(x2));
+		for(auto it1=a[n1].begin();it1!=a[n1].end();it1++){
+			if(*it1==n2)continue;
+			for(auto it2=a[n2].begin();it2!=a[n2].end();it2++){
+				if(*it2==n1)continue;
+				if(arr[*it1*10000+*it2])
+					re.push_back(node(*it1,*it2));
+			}
+		}
+		sort(re.begin(),re.end(),cmp);
+		cout<<re.size()<<endl;
+		for(auto it=re.begin();it!=re.end();it++)
+			printf("%04d %04d\n",it->a,it->b);
+	}
+	return 0;
+}
+/*
+10 18
+-2001 1001
+-2002 -2001
+1004 1001
+-2004 -2001
+-2003 1005
+1005 -2001
+1001 -2003
+1002 1001
+1002 -2004
+-2004 1001
+1003 -2002
+-2003 1003
+1004 -2002
+-2001 -2003
+1001 1003
+1003 -2001
+1002 -2001
+-2002 -2003
+5
+1001 -2001
+-2003 1001
+1005 -2001
+-2002 -2004
+1111 -2003
+
+*/
