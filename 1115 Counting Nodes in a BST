@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct tree{
+	int x;
+	int c;
+	tree *l,*r;
+	tree(int x0,int c0=1):x(x0),c(c0),l(NULL),r(NULL){}
+};
+int n1=0,n2=0,ma=0;
+void built(tree* &root,int x,int c=1){
+	if(c>ma)
+		ma=c;
+	if(root==NULL)
+		root=new tree(x,c);
+	else if(x>root->x)
+		built(root->r,x,c+1);
+	else 
+		built(root->l,x,c+1);
+}
+void fun(tree *root){
+	if(!root)return;
+	if(root->c==ma)n1++;
+	else if(root->c==ma-1)n2++;
+	fun(root->l);
+	fun(root->r);
+}
+int main()
+{
+	int n,i,j;
+	tree *root=NULL;
+	cin>>n;
+	for(i=1;i<=n;i++){
+		cin>>j;
+		built(root,j);
+	}
+	fun(root);
+	cout<<n1<<" + "<<n2<<" = "<<n1+n2;
+	return 0;
+}
+/*
+9
+25 30 42 16 20 20 35 -5 28
+
+*/
