@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+	int i,j,k,m,n,s;
+	string str[1001];
+	string s0;
+	char f[100];
+	set<string> ss;
+	scanf("%d %d %d\n",&m,&n,&s);
+	for(i=1;i<=m;i++){
+		cin>>str[i];
+	}
+	for(i=1;i<=m;i++){
+		if((i-s)%n==0&&i-s>=0){
+			if(!ss.count(str[i])){
+				ss.insert(str[i]);
+				cout<<str[i]<<endl;}
+			else if(++i<=m&&!ss.count(str[i])){
+                ss.insert(str[i]);
+                cout<<str[i]<<endl;
+                break;
+			}
+		}
+	}
+	if(ss.empty()) cout<<"Keep going...";
+	return 0;
+}
+/*
+9 3 2
+Imgonnawin!
+PickMe
+PickMeMeMeee
+LookHere
+Imgonnawin!
+TryAgainAgain
+TryAgainAgain
+Imgonnawin!
+TryAgainAgain
+*/
