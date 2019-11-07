@@ -18,12 +18,8 @@ int main(){
 	do{
 		fun(m,a,b);
 		m=b-a;
-		if(!m){
-			printf("%04d - %04d = %04d",b,a,m);
-			return 0;
-		}
 		printf("%04d - %04d = %04d\n",b,a,m);
-	}while(m!=6174);
+	}while(m!=6174&&m);
 	return 0;
 }
 // 6767
