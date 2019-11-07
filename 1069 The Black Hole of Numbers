@@ -1,0 +1,29 @@
+//https://pintia.cn/problem-sets/994805260223102976/problems/994805302786899968
+#include<bits/stdc++.h>
+using namespace std;
+void fun(int x,int &a,int &b){
+	int re[4]={0},i;
+	for(i=3;i>=0;i--){
+		re[i]=x%10;
+		x=x/10;
+	}
+	sort(re,re+4);
+	a=1000*re[0]+100*re[1]+10*re[2]+re[3];
+	b=re[0]+10*re[1]+100*re[2]+1000*re[3];
+}
+int main(){
+	int i,j,m;
+	int a,b;
+	cin>>m;
+	do{
+		fun(m,a,b);
+		m=b-a;
+		if(!m){
+			printf("%04d - %04d = %04d",b,a,m);
+			return 0;
+		}
+		printf("%04d - %04d = %04d\n",b,a,m);
+	}while(m!=6174);
+	return 0;
+}
+// 6767
