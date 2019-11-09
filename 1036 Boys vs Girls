@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct jl{
+	string na,id;
+	int gr;
+};
+bool fun1(jl x1,jl x2){
+	if(x1.gr<x2.gr)return true;
+	return false;
+}
+bool fun2(jl x1,jl x2){
+	if(x1.gr<x2.gr)return false;
+	return true;
+}
+int main(){
+	vector<jl> M,F;
+	jl x;
+	char xb;
+	int n,i,j,re;
+	cin>>n;
+	for(i=1;i<=n;i++){
+		cin>>x.na>>xb>>x.id>>x.gr;
+		if(xb=='M')
+			M.push_back(x);
+		else 
+			F.push_back(x);
+	}
+	sort(M.begin(),M.end(),fun1);
+	sort(F.begin(),F.end(),fun2);
+	if(!F.empty())
+		cout<<F[0].na<<' '<<F[0].id<<endl;
+	else 
+		cout<<"Absent"<<endl;
+	if(!M.empty())
+		cout<<M[0].na<<' '<<M[0].id<<endl;
+	else 
+		cout<<"Absent"<<endl;
+	if(!F.empty()&&!M.empty())
+		cout<<F[0].gr-M[0].gr;
+	else 
+		cout<<"NA"<<endl;
+	return 0;
+}
+/*
+3
+Joe M Math990112 89
+Mike M CS991301 100
+Mary F EE990830 95
+
+*/
