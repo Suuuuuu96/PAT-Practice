@@ -1,0 +1,90 @@
+#include<bits/stdc++.h>
+#define N 510
+#define inf 99999999
+using namespace std;
+struct node{
+	int pa;
+	int le;
+	node(int pa0=0,int le0=0):pa(pa0),le(le0){}
+};
+int main(){
+	int n,m,c1,c2;
+	int i,j,k,x1,x2,l,max0=0;
+	bool set[N]={false};
+	int dd[N]={0};
+	int help[N]={0};
+	int dis[N]={0};
+	int num=0;
+	cin>>n>>m>>c1>>c2;
+	vector<int> team(n);
+	vector<node> road[N];
+	for(i=0;i<=n-1;i++){
+		cin>>team[i];
+		help[i]=team[i];
+		dis[i]=inf;
+		}
+	for(i=0;i<=m-1;i++){
+		cin>>x1>>x2>>l;
+		road[x1].push_back(node(x2,l));
+		road[x2].push_back(node(x1,l));
+	}
+	dis[c1]=0;
+	dd[c1]=1;
+	while(num<n){
+		int bj;
+		int mi=inf+1;
+		for(i=0;i<=n-1;i++)
+		if(!set[i]&&dis[i]<mi){
+			mi=dis[i];
+			bj=i;
+		}
+		set[bj]=true;
+		num++;
+		for(auto it=road[bj].begin();it!=road[bj].end();it++){
+			if(set[it->pa])continue;
+			if(dis[bj]+it->le<dis[it->pa]){
+				dis[it->pa]=dis[bj]+it->le;
+				help[it->pa]=team[it->pa]+help[bj];
+				dd[it->pa]=dd[bj];
+			}
+			else if(dis[bj]+it->le==dis[it->pa]){
+				dd[it->pa]+=dd[bj];
+				if(help[it->pa]<team[it->pa]+help[bj])
+					help[it->pa]=team[it->pa]+help[bj];
+			}
+		}
+	}
+	cout<<dd[c2]<<' '<<help[c2];
+	return 0;
+}
+/*
+5 6 0 2
+1 2 1 5 3
+0 1 1
+0 2 2
+0 3 1
+1 2 1
+2 4 1
+3 4 1
+
+5 6 0 4
+1 2 1 5 3
+0 1 0
+0 2 1
+0 3 2
+1 2 1
+2 4 1
+3 4 1
+
+5 8 0 4
+1 1 2 2 1
+0 1 2
+0 2 3
+0 3 1
+0 4 4
+1 2 1
+1 3 1
+1 4 2
+2 4 1
+
+*/
