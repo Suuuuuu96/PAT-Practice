@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+char num[11][11]={"zero","one","two","three","four","five","six","seven","eight","nine"};
+void fun(int s){
+	if(s<10)
+		cout<<num[s];
+	else {
+		fun(s/10);
+		cout<<' '<<num[s%10];
+	}
+}
+int main(){
+	string x;
+	cin>>x;
+	int sum=0,i;
+	for(auto it=x.begin();it!=x.end();it++)
+		sum+=*it-'0';
+	fun(sum);
+	return 0;
+}
+// 12345
