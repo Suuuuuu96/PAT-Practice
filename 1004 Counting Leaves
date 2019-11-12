@@ -39,3 +39,34 @@ int main(){
 2 1 4
 
 */
+
+//深度
+#include<bits/stdc++.h>
+using namespace std;
+int ma=0;
+int n,m;
+int a[101]={0};
+vector<int> tr[101];
+void fun(int x,int d){
+	ma=max(ma,d);
+	if(tr[x].empty())
+		a[d]++;
+	else 
+		for(auto it=tr[x].begin();it!=tr[x].end();it++)
+			fun(*it,d+1);
+}
+int main(){
+	int i,k,j,id,x,l=-1,r=0;
+	cin>>n>>m;
+	for(i=1;i<=m;i++){
+		cin>>id>>k;
+		for(j=1;j<=k;j++){
+			cin>>x;
+			tr[id].push_back(x);
+		}
+	}
+	fun(1,1);
+	cout<<a[1];
+	for(j=2;j<=ma;j++)cout<<' '<<a[j];
+	return 0;
+}
