@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n,m;
+int main(){
+	vector<int> tr[101];
+	int i,k,j,id,x,l=-1,r=0;
+	int a[101]={0};
+	cin>>n>>m;
+	for(i=1;i<=m;i++){
+		cin>>id>>k;
+		for(j=1;j<=k;j++){
+			cin>>x;
+			tr[id].push_back(x);
+		}
+	}
+	a[0]=1;
+	while(l<r){
+		if(r)cout<<' ';
+		int r0=r;
+		int num=0;
+		l++;
+		for(j=l;j<=r0;j++){
+			i=a[j];
+			if(tr[i].empty())num++;
+			else for(auto it=tr[i].begin();it!=tr[i].end();it++)
+				a[++r]=*it;	
+		}
+		l=r0;
+		cout<<num;
+	}
+	return 0;
+}
+/*
+2 1
+01 1 02
+
+4 2
+1 2 2 3
+2 1 4
+
+*/
