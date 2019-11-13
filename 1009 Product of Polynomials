@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+#define N 2020
+using namespace std;
+int main(){
+	double a[N]={0},b[N]={0},re[N]={0};
+	int i,j,n,mA=-1,mR=-1,m,k,num=0;
+	cin>>n;
+	for(i=1;i<=n;i++){
+		cin>>j;
+		cin>>a[j];
+		if(j>mA)mA=j;
+	}
+	cin>>m;
+	for(i=1;i<=m;i++){
+		cin>>j;
+		cin>>b[j];
+		for(k=0;k<=mA;k++){
+			if(a[k])
+				re[j+k]+=b[j]*a[k];
+			if(j+k>mR)mR=j+k;
+		}
+	}
+	for(i=mR;i>=0;i--)
+		if(re[i])num++;
+	if(!num){
+		printf("1 %d %.1lf",0,0);
+		return 0;
+	}
+	cout<<num;
+	for(i=mR;i>=0;i--)
+		if(re[i])
+			printf(" %d %.1lf",i,re[i]);
+	return 0;
+}
+/*
+2 1 2.4 0 3.2
+2 2 1.5 1 0.5
+
+1 0 2
+1 0 3
+
+1 0 0
+2 3 6 0 3
+
+2 3 6 0 3
+1 0 0
+
+
+*/
