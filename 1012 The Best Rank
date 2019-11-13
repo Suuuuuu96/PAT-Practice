@@ -1,0 +1,86 @@
+#include<bits/stdc++.h>
+#define N 2020
+using namespace std;
+struct cjb{
+	string id;
+	int ord;
+	int cj[4];
+	int pm[4];
+};
+int f=0;
+bool fun(cjb a,cjb b){
+	if(f==4)return a.ord<b.ord;
+	if(a.cj[f]!=b.cj[f])
+		return a.cj[f]>b.cj[f];
+	for(int i=0;i<=3;i++)
+		if(a.cj[i]!=b.cj[i])
+			return a.cj[i]>b.cj[i];
+	return true;
+}
+int n,m;
+cjb b[N];
+char km[]="ACME";
+int main(){
+	map<string,int> na;
+	string x;
+	int i,j,n,m,k,num=0;
+	cin>>n>>m;
+	for(i=0;i<=n-1;i++){
+		cin>>b[i].id>>b[i].cj[1]>>b[i].cj[2]>>b[i].cj[3];
+		b[i].cj[0]=(b[i].cj[1]+b[i].cj[2]+b[i].cj[3])/3;
+		na[b[i].id]=i+1;
+		b[i].ord=i+1;
+	}
+	for(i=0;i<=3;i++){
+		f=i;
+		sort(b,b+n,fun);
+		for(j=0;j<=n-1;j++){
+			b[j].pm[i]=j;
+			if(j>=1&&b[j].cj[i]==b[j-1].cj[i])
+				b[j].pm[i]=b[j-1].pm[i];
+		}
+	}
+	f=i;
+	sort(b,b+n,fun);
+	for(i=0;i<=m-1;i++){
+		cin>>x;
+		if(!na[x]){
+			cout<<"N/A"<<endl;
+			continue;
+		}
+		k=na[x]-1;
+		int min0=n*2,mj;
+		for(j=0;j<=3;j++)
+			if(b[k].pm[j]<min0){
+				min0=b[k].pm[j];
+				mj=j;
+			}
+		cout<<1+min0<<" "<<km[mj]<<endl;
+	}
+	return 0;
+}
+/*
+5 6
+310101 98 85 88
+310102 70 95 88
+310103 82 87 94
+310104 91 91 91
+310105 85 90 90
+310101
+310102
+310103
+310104
+310105
+999999
+
+5 3
+310101 100 100 88
+310102 100 39 88
+310103 100 89 99
+310104 91 91 91
+310105 85 90 90
+310101
+310102
+310103
+
+*/
