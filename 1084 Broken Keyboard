@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+#define N 1020
+using namespace std;
+int main(){
+	int i,j;
+	bool f[129]={false};
+	string x1,x2,x3;
+	cin>>x1>>x2;
+	for(auto it=x1.begin();it!=x1.end();it++){
+		if(x2.find(*it)==x2.npos&&x3.find(toupper(*it))==x3.npos)
+			x3+=toupper(*it);
+			//cout<<char(toupper(*it));
+	}
+	cout<<x3;
+	return 0;
+}
+/*
+7_This_is_a_test
+_hs_s_a_es
+
+*/
