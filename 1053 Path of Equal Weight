@@ -1,0 +1,138 @@
+/*
+判例有问题。
+输入：
+7 5 10
+3 2 2 3 4 2 1
+00 2 1 2
+01 1 3
+02 1 4 
+03 1 5
+04 1 6
+理应输出：
+3 2 4 1
+3 2 3 2
+但系统要求的输出是：
+3 2 3 2
+3 2 4 1
+*/
+
+//可以通过系统的版本：
+#include<bits/stdc++.h>
+using namespace std;
+struct tree{
+	vector<int> son;
+	long w;
+};
+long s;
+tree tr[101];
+vector<int> re0;
+vector<vector<int>> re;
+void fun(int root,int sum=0){
+	int s0=sum+tr[root].w;
+	if(s0>s||s0<s&&tr[root].son.empty())
+		return;
+	re0.push_back(tr[root].w);
+	if(s0==s&&tr[root].son.empty())
+		re.push_back(re0);
+	else 
+		for(auto it=tr[root].son.begin();it!=tr[root].son.end();it++)
+			fun(*it,s0);
+	re0.pop_back();
+}
+bool fun3(int a,int b){
+	return tr[a].w>tr[b].w;
+}
+int main(){
+	long i,j,n,m,k,x,id;
+	cin>>n>>m>>s;
+	for(i=0;i<=n-1;i++)cin>>tr[i].w;
+	for(i=0;i<=m-1;i++){
+		cin>>id>>k;
+		tr[id].son.resize(k);
+		for(j=0;j<=k-1;j++)
+			cin>>tr[id].son[j];
+		sort(tr[id].son.begin(),tr[id].son.end(),fun3); 
+	}
+	fun(0);
+	for(auto it=re.begin();it!=re.end();it++){
+		auto it2=it->begin();
+		cout<<*it2;
+		it2++;
+		for(;it2!=it->end();it2++)
+			cout<<' '<<*it2;
+		cout<<endl;
+	}
+	return 0;
+}
+/*
+20 9 24
+10 2 4 3 5 10 2 18 9 7 2 2 1 3 12 1 8 6 2 2
+00 4 01 02 03 04
+02 1 05
+04 2 06 07
+03 3 11 12 13
+06 1 09
+07 2 08 10
+16 1 15
+13 3 14 16 17
+17 2 18 19
+
+7 5 10
+3 2 2 3 4 2 1
+00 2 1 2
+01 1 3
+02 1 4 
+03 1 5
+04 1 6
+
+*/
+
+
+//真正正确版：
+#include<bits/stdc++.h>
+using namespace std;
+struct tree{
+	vector<int> son;
+	long w;
+};
+tree tr[101];
+vector<vector<int>> re;
+vector<int> re0;
+long s;
+void fun(int root,int sum=0){
+	int s0=sum+tr[root].w;
+	if(s0>s||s0<s&&tr[root].son.empty())return;
+	re0.push_back(tr[root].w);
+	if(s0==s&&tr[root].son.empty())re.push_back(re0);
+	else for(auto it=tr[root].son.begin();it!=tr[root].son.end();it++)
+	fun(*it,s0);
+	re0.pop_back();
+}
+bool fun2(vector<int> a,vector<int> b){
+	for(auto i=a.begin(),j=b.begin();i!=a.end(),j!=b.end();i++,j++)
+		if(*i>*j)return true;
+	return false;
+}
+int main(){
+	long i,j,n,m,k,x,id;
+	cin>>n>>m>>s;
+	for(i=0;i<=n-1;i++)cin>>tr[i].w;
+	for(i=0;i<=m-1;i++){
+		cin>>id>>k;
+		for(j=0;j<=k-1;j++){
+			cin>>x;
+			tr[id].son.push_back(x);
+		}
+	}
+	fun(0);
+	sort(re.begin(),re.end(),fun2);
+	for(auto it=re.begin();it!=re.end();it++){
+		auto it2=it->begin();
+		cout<<*it2;
+		it2++;
+		for(;it2!=it->end();it2++)
+			cout<<' '<<*it2;
+		cout<<endl;
+	}
+	return 0;
+}
