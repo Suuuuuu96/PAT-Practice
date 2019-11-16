@@ -6,17 +6,21 @@ int main()
 	int n,i,j,k=-1,a[100001]={0},m;
 	bool  f[10001]={false},f2[10001]={false};
 	cin>>n;
-	for(i=0;i<=n-1;i++)
-	{
-	cin>>a[i];
-	if(!f[a[i]])f[a[i]]=true;
-	else f2[a[i]]=true;
+	for(i=0;i<=n-1;i++){
+		cin>>a[i];
+		if(!f[a[i]])
+			f[a[i]]=true;
+		else 
+			f2[a[i]]=true;
 	}
-	for(i=0;i<=n-1;i++)
-	{
-	if(!f2[a[i]]){cout<<a[i];break;}
+	for(i=0;i<=n-1;i++){
+		if(!f2[a[i]]){
+			cout<<a[i];
+			break;
+		}
 	}
-	if(i>n-1){cout<<"None";}
+	if(i>n-1)
+		cout<<"None";
 	return 0; 
 }
 /*
