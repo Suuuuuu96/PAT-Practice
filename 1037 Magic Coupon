@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	long nc,np,i,j,k,sum=0;
+	scanf("%ld",&nc);
+	vector<long> c(nc);
+	for(i=0;i<=nc-1;i++)
+		scanf("%ld",&c[i]);
+	scanf("%ld",&np);
+	vector<long> p(np);
+	for(i=0;i<=np-1;i++)
+		scanf("%ld",&p[i]);
+	sort(c.begin(),c.end());
+	sort(p.begin(),p.end());
+	for(auto ic=c.rbegin(),ip=p.rbegin();ic!=c.rend(),ip!=p.rend();ic++,ip++){
+		k=*ic**ip;
+		if(k>0)
+			sum+=k;
+		else 
+			break;
+	}
+	if(c[0]*c[nc-1]<0)
+		for(auto ic=c.begin(),ip=p.begin();ic!=c.end(),ip!=p.end();ic++,ip++){
+			k=*ic**ip;
+			if(k>0)
+				sum+=k;
+			else 
+				break;
+		}
+	printf("%ld",sum);
+	return 0;
+}
+/*
+4
+1 2 4 -1
+4
+7 6 -2 -3
+
+3
+1 1 2
+2
+3 5
+
+*/
