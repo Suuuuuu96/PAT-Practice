@@ -1,0 +1,33 @@
+//https://pintia.cn/problem-sets/994805342720868352/problems/994805345732378624
+#include<bits/stdc++.h>
+#define N 100001
+using namespace std;
+int main(){
+	int i,j,n,m,k,te;
+	string str;
+	cin>>str;
+	for(i=1;i<=10;i++){
+		string re(str.rbegin(),str.rend());
+		if(re==str){
+			cout<<re<<" is a palindromic number.";
+			return 0;
+		}
+		cout<<str<<" + "<<re<<" = ";
+		str="0"+str;re="0"+re;
+		k=0;
+		m=str.length();
+		for(j=m-1;j>=0;j--){
+			te=str[j]-'0'+re[j]-'0'+k;
+			k=0;
+			if(te>=10){
+				k=1;
+				te=te-10;
+			}
+			str[j]=te+'0';
+		}
+		if(str[0]=='0')str.erase(str.begin());//str=string(str.begin()+1,str.end());
+		cout<<str<<endl;
+	}
+	cout<<"Not found in 10 iterations.";
+	return 0;
+}
