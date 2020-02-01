@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int k,i,j,n;
+	cin>>k;
+	while(k-->0){
+		cin>>n;
+		vector<int> a(n);
+		vector<bool> fl(n,false);
+		bool f=true;
+		set<int> zhu;		
+		for(i=0;i<=n-1;i++){
+			cin>>a[i];
+			if(fl[a[i]])
+				f=false;
+			else 
+				fl[a[i]]=true;
+			int cha=a[i]-i;
+			if(zhu.count(cha)==1)
+				f=false;
+			else 
+				zhu.insert(cha);
+		}
+		if(f)
+			cout<<"YES"<<endl;
+		else 
+			cout<<"NO"<<endl;
+	}
+	return 0;
+}
+/*
+4
+8 4 6 8 2 7 1 3 5
+9 4 6 7 2 8 1 9 5 3
+6 1 5 2 6 4 3
+5 1 3 5 2 4
+
+*/
