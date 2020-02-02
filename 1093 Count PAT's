@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+#define M 1000000007
+using namespace std;
+int main(){
+	long i,n,p0=0,t0=0,Tsum=0,Psum=0,re=0,te;	
+	string str;
+	vector<long> p,t;
+	cin>>str;
+	for(auto it=str.begin();it!=str.end();it++){
+		if(*it=='P')
+			p0++;
+		else if(*it=='T'){
+			t0++;
+			Tsum++;
+		}
+		else if(*it=='A'){
+			p.push_back(p0);
+			p0=0;
+			t.push_back(t0);
+			t0=0;
+		}
+	}
+	n=p.size();
+	for(i=0;i<=n-1;i++){
+		Tsum-=t[i];
+		Psum+=p[i];
+		te=(Tsum*Psum)%M;
+		re=(re+te)%M;
+	}
+	cout<<re;
+	return 0;
+}
+/*
+APPAPT
+PAAPPAPTTTT
+*/
