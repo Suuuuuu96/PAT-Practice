@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+vector<int> v;
+void fun(int n,int b){
+	v.push_back(n%b);
+	if(n>=b)
+		fun(n/b,b);
+}
+int main(){
+	int i,n,k,j,b;
+	cin>>n>>b;
+	fun(n,b);
+	j=v.size();
+	for(i=0;i<=(j-1)/2;i++)
+		if(v[i]!=v[j-i-1])
+			break;
+	if(i>(j-1)/2)
+		cout<<"Yes"<<endl;
+	else 
+		cout<<"No"<<endl;
+	auto it=v.rbegin();
+	cout<<*it;
+	for(it++;it!=v.rend();it++)
+		cout<<' '<<*it;
+	return 0;
+}
+/*
+27 2
+
+110011 10
+*/
