@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+#define M 1000000007
+using namespace std;
+int fun(string s,char a){
+	int r=0,i;
+	for(i=0;i<s.size();i++)
+		if(s[i]==a)
+			r++;
+	return r;
+}
+int main(){
+	long i,n,re=0,te;
+	int que[200]={0};	
+	string str,buy;
+	cin>>str>>buy;
+	n=buy.size();
+	for(i=0;i<=n-1;i++){
+		if(que[buy[i]]==0){
+			if(fun(buy,buy[i])>fun(str,buy[i])){
+				que[buy[i]]=fun(buy,buy[i])-fun(str,buy[i]);
+				re+=que[buy[i]];
+			}
+			else que[buy[i]]=-1;
+		}
+	}
+	if(re)
+		cout<<"No "<<re;
+	else 
+		cout<<"Yes "<<str.size()-buy.size();
+	return 0;
+}
+/*
+ppRYYGrrYBR2258
+YrR8RrY
+
+*/
