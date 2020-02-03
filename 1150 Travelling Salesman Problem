@@ -1,0 +1,86 @@
+#include<bits/stdc++.h>
+#define N 201
+using namespace std;
+int main(){
+	int i,j,m,temp,n,k,dist[N][N]={0},min0=0,p,index=1;
+	cin>>n>>m;
+	for(i=1;i<=m;i++){
+		cin>>j>>k>>temp;
+		dist[j][k]=temp;
+		dist[k][j]=temp;
+	}
+	cin>>k;
+	for(i=1;i<=k;i++){
+		cin>>p;
+		set<int> num;
+		vector<int> visit(n+1,0),path(p,0);
+		bool na=false,simple=true;
+		int city=0;
+		cin>>path[0];
+		num.insert(path[0]);
+		int d=0;
+		for(j=1;j<p;j++){
+			cin>>path[j];
+			num.insert(path[j]);
+			if(!dist[path[j]][path[j-1]])
+				na=true;
+			d=d+dist[path[j]][path[j-1]];
+			visit[path[j]]++;
+			if(visit[path[j]]>=2)
+				simple=false;
+		}		
+		cout<<"Path "<<i<<": ";
+		if(na)
+			cout<<"NA";
+		else 
+			cout<<d;
+		if(na||path[0]!=path[p-1]||num.size()<n){
+			cout<<" (Not a TS cycle)";
+			na=true;
+		}
+		else if(p==n+1&&simple)
+			cout<<" (TS simple cycle)";
+		else 
+			cout<<" (TS cycle)";
+		cout<<endl;
+		if(na)continue;
+		if(!min0||d<min0){
+			min0=d;
+			index=i;
+		}
+	}
+	cout<<"Shortest Dist("<<index<<") = "<<min0;	
+	return 0;
+}
+/*
+6 10
+6 2 1
+3 4 1
+1 5 1
+2 5 1
+3 1 8
+4 1 6
+1 6 1
+6 3 1
+1 2 1
+4 5 1
+7
+7 5 1 4 3 6 2 5
+7 6 1 3 4 5 2 6
+6 5 1 4 3 6 2
+9 6 2 1 6 3 4 5 2 6
+4 1 2 5 1
+7 6 1 2 5 4 3 1
+7 6 3 2 5 4 1 6
+
+
+Path 1: 11 (TS simple cycle)
+Path 2: 13 (TS simple cycle)
+Path 3: 10 (Not a TS cycle)
+Path 4: 8 (TS cycle)
+Path 5: 3 (Not a TS cycle)
+Path 6: 13 (Not a TS cycle)
+Path 7: NA (Not a TS cycle)
+Shortest Dist(4) = 8
+
+*/
