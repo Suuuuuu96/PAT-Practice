@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int i,j,m,temp;
+	int f[10]={0};
+	string n;
+	cin>>n;
+	m=n.size();
+	n="0"+n;	
+	for(i=m,j=0;i>=0;i--){		
+		if(i)f[n[i]-'0']++;
+		temp=j+(n[i]-'0')*2;
+		j=0;
+		if(temp>9){
+			j=1;
+			temp=temp%10;
+		}
+		n[i]=temp+'0';
+	}
+	if(!(n[0]-'0'))
+		n=string(n.begin()+1,n.end());
+	for(auto it=n.begin();it!=n.end();it++){
+		f[*it-'0']--;
+		if(f[*it-'0']<0){
+			cout<<"No\n"<<n;
+			return 0;
+		}
+	}	
+	cout<<"Yes\n"<<n;
+	return 0;
+}
+/*
+12345678991234567899
+
+*/
