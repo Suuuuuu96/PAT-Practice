@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int n,i,j,k,s[101]={0};
+	cin>>n;
+	for(i=1;i<=n;i++)
+		cin>>s[i];
+	for(i=1;i<=n-1;i++)
+		for(j=i+1;j<=n;j++){
+			vector<int> p(n+1,1),l;
+			p[i]=p[j]=-1;
+			for(k=1;k<=n;k++)
+				if(p[abs(s[k])]*s[k]<0)
+					l.push_back(k);
+			if(l.size()==2&&p[l[0]]*p[l[1]]<0){
+				cout<<i<<' '<<j;
+				return 0;
+			}
+		}
+	cout<<"No Solution";
+	return 0;
+}
