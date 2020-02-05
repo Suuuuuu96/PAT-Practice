@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+#define N 50001
+using namespace std;
+struct node{
+	int key,num;
+	bool operator<(const node &temp)const{
+		return num!=temp.num?num>temp.num:key<temp.key;
+	}
+};
+int main()
+{
+	int n,k,i,j,book[N]={0},t;
+	cin>>n>>k;
+	set<node> s;
+	for(i=1;i<=n;i++){
+		cin>>j;
+		if(i==1){
+			book[j]++;
+			s.insert(node{j,book[j]});
+			continue;
+		}
+		cout<<j<<":";
+		auto it=s.begin();
+		for(t=1;t<=k&&it!=s.end();t++,it++)
+			cout<<" "<<it->key;		
+		cout<<endl;		
+		it=s.find(node{j,book[j]});
+		if(it!=s.end())
+			s.erase(it);
+		book[j]++;
+		s.insert(node{j,book[j]});
+	}
+	return 0;
+}
+/*
+12 3
+3 5 7 5 5 3 2 1 8 3 8 12
+
+*/
