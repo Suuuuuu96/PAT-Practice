@@ -1,0 +1,14 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int n,k,i,m;
+	int a[4]={0},b[4]={0};
+	scanf("%d.%d.%d %d.%d.%d",&a[0],&a[1],&a[2],&b[0],&b[1],&b[2]);
+	a[2]+=b[2];
+	a[1]=a[1]+b[1]+a[2]/29;
+	a[2]=a[2]%29;
+	a[0]=a[0]+b[0]+a[1]/17;
+	a[1]=a[1]%17;
+	printf("%d.%d.%d",a[0],a[1],a[2]);
+	return 0;
+}
