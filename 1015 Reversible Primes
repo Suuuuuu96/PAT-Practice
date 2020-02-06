@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool isPrime(int n){
+	if(n<=1)return false;
+	for(int i=2;i*i<=n;i++)
+		if(n%i==0)
+			return false;
+	return true;
+}
+int main(){
+	int n,k,i,m;
+	while(1){
+		cin>>n;
+		if(n<0)break;
+		cin>>k;
+		if(!isPrime(n)){
+			cout<<"No"<<endl;
+			continue;
+		}
+		m=0;
+		while(n){
+			m=m*k+n%k;
+			n=n/k;
+		}
+		if(!isPrime(m))cout<<"No"<<endl;
+		else cout<<"Yes"<<endl;
+	}
+	return 0;
+}
