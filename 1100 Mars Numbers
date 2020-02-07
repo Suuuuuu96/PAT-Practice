@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int i,n,m;
+	string a;
+	//char a[100];
+	string se[]={"tam","hel","maa","huh","tou","kes","hei","elo","syy","lok","mer","jou"};
+	string fi[]={"tret","jan","feb","mar","apr","may","jun","jly","aug","sep","oct","nov","dec"};
+	scanf("%d\n",&n);
+	while(n-->0){
+		getline(cin,a);
+		if(isdigit(a[0])){
+			i=0;
+			for(auto it=a.begin();it!=a.end();it++)
+			i=i*10+*it-'0';
+			if(i>=13){
+				cout<<se[i/13-1];
+				if(i%13)
+					cout<<' '<<fi[i%13];
+			}
+			else 
+				cout<<fi[i];
+			cout<<endl;
+		}
+		else{
+			int re=0;
+			string q,h;
+			auto it=a.begin();
+			for(;it!=a.end();it++)
+				if(*it==' ')
+					break;
+			q=string(a.begin(),it);
+			if(it!=a.end())
+				h=string(it+1,a.end());		
+			m=12;
+			for(i=0;i<=m-1;i++)
+				if(se[i]==q)
+					re+=i*13+13;
+			m=13;
+			for(i=0;i<=m-1;i++){
+				if(fi[i]==q)re+=i;
+				if(fi[i]==h)re+=i;
+			}
+			cout<<re<<endl;
+		}
+	}
+	return 0;
+}
+/*
+10
+29
+5
+elo nov
+tam
+tret
+168
+0
+tam apr
+13
+dec
+
+*/
