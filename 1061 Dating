@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int i;
+	string a,b,c,d;
+	string s[]={"MON","TUE","WED","THU","FRI","SAT","SUN"};
+	cin>>a>>b>>c>>d;
+	for(i=0;i<=a.size()-1;i++){
+		if(a[i]==b[i]&&a[i]>='A'&&a[i]<='G'){
+			cout<<s[a[i]-'A'];break;
+		}
+	}
+	for(i++;i<=a.size()-1;i++){
+		if(a[i]==b[i]&&(a[i]>='A'&&a[i]<='N'||isdigit(a[i]))){
+			printf(" %02d:",isdigit(a[i])?a[i]-'0':a[i]-'A'+10);
+			break;
+		}
+	}
+	for(i=0;i<=c.size()-1;i++){
+		if(c[i]==d[i]&&isalpha(c[i])){
+			printf("%02d",i);
+			break;
+		}
+	}
+	return 0;
+}
