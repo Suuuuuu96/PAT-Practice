@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	set<char> Re,noRe;
+	vector<char> ve;
+	string str;
+	int n,m,k,i,j;
+	scanf("%d\n",&k);
+	cin>>str;
+	n=str.size();	
+	for(i=0;i<=n-k;i++){
+		if(noRe.count(str[i]))continue;
+		char temp=str[i];
+		for(j=i+1;j<=i+k-1;j++)
+			if(str[j]!=temp)break;
+		if(j>i+k-1){
+			if(!Re.count(temp))
+				ve.push_back(temp);
+			Re.insert(temp);
+		}
+		else if(Re.count(temp))
+			noRe.insert(temp);
+		i=j-1;
+	}
+	for(;i<=n-1;i++)	
+		noRe.insert(str[i]);
+	for(auto it=ve.begin();it!=ve.end();it++)
+		if(!noRe.count(*it))
+			cout<<*it;cout<<endl;
+	for(i=0;i<=n-1;i++){
+		cout<<str[i];
+		if(!noRe.count(str[i])&&Re.count(str[i]))
+			i=i+k-1;
+	}
+	return 0;
+}
+/*
+3
+caseee1__thiiis_iiisss_a_teeeeeesti
+
+*/
