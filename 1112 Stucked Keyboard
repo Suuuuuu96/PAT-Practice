@@ -18,7 +18,7 @@ int main(){
 				ve.push_back(temp);
 			Re.insert(temp);
 		}
-		else if(Re.count(temp))
+		else //if(Re.count(temp))
 			noRe.insert(temp);
 		i=j-1;
 	}
@@ -36,6 +36,6 @@ int main(){
 }
 /*
 3
-caseee1__thiiis_iiisss_a_teeeeeesti
+caseee1__thiiis_iiis_a_teeeeeesssti
 
 */
