@@ -1,0 +1,14 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int i,n;
+	set<int> s;
+	cin>>n;
+	while(n-->0){
+		cin>>i;
+		s.insert(i);
+	}
+	for(i=1;s.count(i);i++);
+	cout<<i;
+	return 0;
+}
