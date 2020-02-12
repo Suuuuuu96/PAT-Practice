@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool isPrime(long n){
+	for(int i=2;i*i<=n;i++)
+		if(n%i==0)
+			return false;
+	return true;
+}
+int main(){
+	long i,n,j=2,m,k,l,temp;
+	string str;
+	scanf("%ld%ld\n",&l,&k);
+	cin>>str;
+	for(i=0;i<=l-k;i++){
+		temp=0;
+		for(j=i;j<=i+k-1;j++)
+			temp=temp*10+str[j]-'0';
+		if(isPrime(temp)){
+			for(j=i;j<=i+k-1;j++)
+				cout<<str[j];
+			return 0;
+		}		
+	}
+	cout<<404;
+	return 0;
+}
+/*
+20 5
+23654987725541023819
+
+*/
