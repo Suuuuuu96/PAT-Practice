@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+#define N 1001
+using namespace std;
+int father[N]={0};
+int findFather(int x){
+	while(x!=father[x])
+		x=father[x];
+	return x;
+}
+int uni(int a,int b){
+	int fa=findFather(a);
+	int fb=findFather(b);
+	if(fa!=fb)father[fa]=fb;
+}
+int main(){
+	int n,i,j,k,num[N]={0},x;
+	scanf("%d",&n);
+	for(i=1;i<N;i++)father[i]=i;
+	while(n-->0){
+		scanf("%d: %d",&k,&x);
+		num[x]++;
+		for(i=2;i<=k;i++){
+			scanf("%d",&j);
+			uni(x,j);
+		}
+	}
+	map<int,int> mii;
+	for(i=1;i<N;i++)
+		if(num[i]){
+			mii[findFather(i)]+=num[i];				
+	}
+	vector<int> re;
+	for(auto it=mii.begin();it!=mii.end();it++)
+		re.push_back(it->second);
+	sort(re.rbegin(),re.rend());
+	auto it=re.begin();
+	cout<<re.size()<<endl<<*it;	
+	for(it++;it!=re.end();it++)
+		cout<<' '<<*it;
+	return 0;
+}
