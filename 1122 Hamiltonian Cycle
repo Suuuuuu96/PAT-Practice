@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+#define N 421
+using namespace std;
+int main(){
+	int n,m,j,i,k,a[N],n0;
+	scanf("%d%d",&n0,&m);
+	set<int> s[N];
+	for(i=1;i<=m;i++){
+		scanf("%d%d",&j,&k);
+		s[j].insert(k);
+		s[k].insert(j);
+	}
+	scanf("%d",&k);
+	while(k-->0){		
+		scanf("%d",&n);
+		for(i=1;i<=n;i++)
+			scanf("%d",&a[i]);
+		if(a[1]!=a[n]||n!=n0+1){
+			cout<<"NO"<<endl;continue;
+		}
+		bool f[N]={false};
+		for(i=2;i<=n;i++){
+			if(f[a[i]]||s[a[i-1]].count(a[i])==0){
+				cout<<"NO"<<endl;
+				break;
+			}
+			f[a[i]]=true;
+		}
+		if(i>n)
+			cout<<"YES"<<endl;
+	}
+	return 0;
+}
