@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	map<int ,int> mii;
+	set<int> s;
+	int i,j,n,m,k;
+	vector<int> re;
+	scanf("%d",&n);
+	while(n--){
+		scanf("%d%d",&i,&j);
+		mii[i]=j;
+		mii[j]=i;
+	}
+	scanf("%d",&m);
+	while(m--){
+		scanf("%d",&i);
+		s.insert(i);
+	}
+	for(auto it:s){
+		if(mii.count(it)==0||s.count(mii[it])==0)
+		re.push_back(it);
+	}
+	if(re.empty()){
+		printf("0");return 0;
+	}
+	printf("%d\n%05d",re.size(),re[0]);
+	for(i=1;i<re.size();i++){
+		printf(" %05d",re[i]);
+	}
+	return 0;
+}
