@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+#define N 10001
+using namespace std;
+struct nod{
+	string s;
+	int g[4];
+};
+bool fun(nod n1,nod n2){
+	return n1.g[3]!=n2.g[3]?n1.g[3]>n2.g[3]:n1.s<n2.s;
+}
+int main(){
+	long i,j,n,m,k,num,p;
+	string str;
+	cin>>p>>m>>n;
+	map<string,nod> mso;
+	while(p--){
+		cin>>str>>i;
+		if(i<200)continue;
+		if(mso.count(str)==0)
+			mso[str]={str,-1,-1,-1,-1};
+		mso[str].g[0]=i;
+	}
+	while(m--){
+		cin>>str>>i;
+		if(mso.count(str)==0)
+			mso[str]={str,-1,-1,-1,-1};
+		mso[str].g[1]=i;
+	}
+	while(n--){
+		cin>>str>>i;
+		if(mso.count(str)==0)
+			mso[str]={str,-1,-1,-1,-1};
+		mso[str].g[2]=i;
+	}
+	vector<nod> re;
+	for(auto it=mso.begin();it!=mso.end();it++){
+		if(it->second.g[0]<200)continue;
+		it->second.g[3]
+		=it->second.g[1]>it->second.g[2]?round((it->second.g[1]*4+it->second.g[2]*6)/10.0):it->second.g[2];
+		if(it->second.g[3]>=60)
+			re.push_back(it->second);
+	}
+	sort(re.begin(),re.end(),fun);
+	for(auto it:re){
+		cout<<it.s<<' '<<it.g[0]<<' '<<it.g[1]<<' '<<it.g[2]<<' '<<it.g[3]<<endl;
+	}
+	return 0;
+}
