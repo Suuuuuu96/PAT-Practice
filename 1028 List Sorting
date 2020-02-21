@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+int c;
+struct node{
+	int id,g;
+	string s;
+};
+bool fun(node n1,node n2){
+	if(c==1)return n1.id<n2.id;
+	if(c==2)return n1.s!=n2.s?n1.s<n2.s:n1.id<n2.id;
+	return n1.g!=n2.g?n1.g<n2.g:n1.id<n2.id;
+}
+int main(){
+	int i,n,k,j,m,temp,p;
+	vector<node> re;
+	string str;
+	cin>>n>>c;
+	while(n--){
+		cin>>i>>str>>j;
+		re.push_back({i,j,str});
+	}
+	sort(re.begin(),re.end(),fun);
+	for(auto it:re){
+		printf("%06d ",it.id);
+		cout<<it.s;
+		printf(" %d\n",it.g);
+	}
+	return 0;
+}
