@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int i,n,k,j,m,temp,p;
+	string str2;
+	cin>>str2>>k;
+	for(i=0;i<=k;i++){		
+		string str(str2.rbegin(),str2.rend());
+		if(str2==str||i==k)break;
+		m=str2.size();
+		for(p=0,j=m-1;j>=0;j--){
+			temp=str2[j]-'0'+str[j]-'0'+p;
+			p=temp/10;
+			temp%=10;
+			str2[j]=temp+'0';
+		}
+		if(p)str2="1"+str2;
+	}
+	cout<<str2<<endl<<i;
+	return 0;
+}
+/*
+6236055999 30
+*/
