@@ -1,0 +1,18 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int i,n,k,j,Max=0;
+	string str;
+	getline(cin,str);
+	n=str.size();	
+	for(i=0;i<=n-1;i++){
+		for(j=1;i+j<=n-1&&i-j>=0&&str[i-j]==str[i+j];j++);
+		if(j*2-1>Max)
+			Max=j*2-1;
+		for(j=1;i+j<=n-1&&i-j+1>=0&&str[i-j+1]==str[i+j];j++);
+		if(j*2-2>Max)
+			Max=j*2-2;
+	}
+	cout<<Max;
+	return 0;
+}
