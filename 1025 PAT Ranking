@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node{
+	string str;
+	int sc,fr,l,lr;
+};
+bool cmp(node n1,node n2){
+	return n1.sc!=n2.sc?n1.sc>n2.sc:n1.str<n2.str;
+}
+int main(){
+	int k,i,j,n,m=0,x,y;	
+	vector<node> re;
+	string str;
+	scanf("%d",&n);
+	for(x=1;x<=n;x++){
+		scanf("%d",&k);
+		for(i=1;i<=k;i++){
+			cin>>str>>j;
+			re.push_back({str,j,0,x,0});
+		}
+		sort(re.begin()+m,re.begin()+m+k,cmp);
+		re[m].lr=1;
+		for(i=1;i<=k-1;i++){
+			if(re[m+i].sc==re[m+i-1].sc)
+				re[m+i].lr=re[m+i-1].lr;
+			else re[m+i].lr=i+1;
+		}
+		m=m+k;
+	}
+	sort(re.begin(),re.end(),cmp);
+	re[0].fr=1;
+		for(i=1;i<=m-1;i++){
+			if(re[i].sc==re[i-1].sc)
+				re[i].fr=re[i-1].fr;
+			else re[i].fr=i+1;
+		}
+	cout<<m<<endl;
+	for(auto it:re){
+		cout<<it.str<<' '<<it.fr<<' '<<it.l<<' '<<it.lr<<endl;
+	}
+	return 0;
+}
