@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+#define N 130
+using namespace std;
+struct node{
+	bool ma[N][N];
+	bool visit[N][N];
+	bool True[N][N];
+};
+struct ind{
+	int i,j,k;
+};
+vector<ind> temp;
+int m,n,l,t,sum=0,num;
+node pi[66];
+void count(int i,int j,int k){
+	if(i<=0||i>l||j<=0||j>m||k<=0||k>n
+	||!pi[i].ma[j][k]||pi[i].visit[j][k])return;
+	num++;
+	pi[i].visit[j][k]=true;
+	temp.push_back({i,j,k});
+	if(num>=t
+	||pi[i+1].True[j][k]||pi[i-1].True[j][k]
+	||pi[i].True[j+1][k]||pi[i].True[j-1][k]
+	||pi[i].True[j][k+1]||pi[i].True[j][k-1]){
+		for(auto it:temp){
+			pi[it.i].True[it.j][it.k]=true;
+			sum++;
+		}
+		temp.clear();
+		return;
+	}
+	count(i+1,j,k);count(i-1,j,k);
+	count(i,j+1,k);count(i,j-1,k);
+	count(i,j,k+1);count(i,j,k-1);
+}
+int main(){
+	int k,i,j;
+	vector<int> w;
+	set<int> a,b,c;
+	c.insert(w.begin(),w.end());
+	scanf("%d%d%d%d",&m,&n,&l,&t);
+	for(i=1;i<=l;i++)
+		for(j=1;j<=m;j++)
+			for(k=1;k<=n;k++){
+				scanf("%d",&pi[i].ma[j][k]);
+				pi[i].visit[j][k]=false;
+			}
+	for(i=1;i<=l;i++)
+		for(j=1;j<=m;j++)
+			for(k=1;k<=n;k++){
+				num=0;
+				if(!pi[i].visit[j][k]&&pi[i].ma[j][k]){
+					temp.clear();
+					count(i,j,k);
+				}
+			}
+	cout<<sum;
+	return 0;
+}
