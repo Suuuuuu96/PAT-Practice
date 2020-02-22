@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node{
+	int add,key,next;
+};
+int main(){
+	int i,n,k,j,Max=0,st;
+	map<int,node> min;
+	set<int> skey;
+	vector<node> re1,re2;
+	cin>>st>>n;
+	while(n--){
+		cin>>i>>j>>k;
+		min[i]={i,j,k};
+	}
+	for(i=st;i!=-1;i=min[i].next){
+		if(skey.count(min[i].key)||skey.count(-min[i].key))
+			re2.push_back(min[i]);
+		else re1.push_back(min[i]);
+			skey.insert(min[i].key);
+	}
+	n=re1.size();
+	for(i=0;i<=n-2;i++)
+	printf("%05d %d %05d\n",re1[i].add,re1[i].key,re1[i+1].add);
+	printf("%05d %d -1\n",re1[i].add,re1[i].key);
+	if(re2.empty())return 0;
+	n=re2.size();
+	for(i=0;i<=n-2;i++)
+	printf("%05d %d %05d\n",re2[i].add,re2[i].key,re2[i+1].add);
+	printf("%05d %d -1\n",re2[i].add,re2[i].key);
+	return 0;
+}
