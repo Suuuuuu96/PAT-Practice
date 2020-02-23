@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+	int i=0,n,j,k,max=0;
+	string str,str2;
+	vector<string> re;
+	map<string,int> msi;
+	char c;
+	while(1){
+		cin>>str;
+		n=str.size();
+		for(i=0;i<=n-1;i++){
+			if(!isalnum(str[i]))continue;
+			for(j=i;j<=n-1;j++){
+				if(!isalnum(str[j]))break;
+				str[j]=tolower(str[j]);
+			}
+			str2=string(str.begin()+i,str.begin()+j);
+			msi[str2]++;
+			if(msi[str2]==max){
+				re.push_back(str2);
+			}
+			else if(msi[str2]>max){
+				max=msi[str2];
+				re.clear();
+				re.push_back(str2);
+			}
+			i=j;
+		}
+		if(getchar()=='\n')break;
+	}
+	sort(re.begin(),re.end());
+	cout<<re[0]<<' '<<msi[re[0]];
+	return 0;
+}
+/*
+ab ab xz xz ddS
+*/
