@@ -1,0 +1,23 @@
+#include<bits/stdc++.h>
+#define N 51
+using namespace std;
+int main(){
+	long n,m,k,i,j,g;
+	unordered_set<long> data[N];
+	scanf("%ld",&n);
+	for(i=1;i<=n;i++){
+		scanf("%ld",&m);
+		while(m--){
+			scanf("%ld",&j);
+			data[i].insert(j);
+		}
+	}
+	scanf("%ld",&k);
+	while(k--){
+		scanf("%ld%ld",&j,&g);
+		unordered_set<long> temp=data[j];
+		temp.insert(data[g].begin(),data[g].end());
+		printf("%.1f%\n",100.0*(data[j].size()+data[g].size()-temp.size())/temp.size());
+	}
+	return 0;
+}
