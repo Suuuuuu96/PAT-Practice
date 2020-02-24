@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+int h;
+struct node{
+	int id,a,b;
+};
+bool cmp(const node &n1,const node &n2){
+	int t1=n1.a+n1.b,t2=n2.a+n2.b;
+	bool f1a,f2a,f1b,f2b;
+	f1a=n1.a>=h;
+	f2a=n2.a>=h;
+	f1b=n1.b>=h;
+	f2b=n2.b>=h;
+	if(f1a&&f2a&&f1b&&f2b){
+		if(t1!=t2)return t1>t2;
+		return n1.a!=n2.a?n1.a>n2.a:n1.id<n2.id;
+	}
+	if(f1a&&f1b)return true;
+	if(f2a&&f2b)return false;
+	if(f1a&&!f1b&&f2a&&!f2b){
+		if(t1!=t2)return t1>t2;
+		return n1.a!=n2.a?n1.a>n2.a:n1.id<n2.id;
+	}
+	if(f1a&&!f1b)return true;
+	if(f2a&&!f2b)return false;
+	
+	if(!f1a&&!f2a&&n1.a>=n1.b&&!f1b&&!f2b&&n2.a>=n2.b){
+		if(t1!=t2)return t1>t2;
+		return n1.a!=n2.a?n1.a>n2.a:n1.id<n2.id;
+	}
+	if(!f1a&&!f1b&&n1.a>=n1.b)return true;
+	if(!f2a&&!f2b&&n2.a>=n2.b)return false;
+	
+	if(t1!=t2)return t1>t2;
+		return n1.a!=n2.a?n1.a>n2.a:n1.id<n2.id;
+}
+int main(){
+	int i,k,j,n,m,l;
+	scanf("%d%d%d",&n,&l,&h);
+	vector<node> re;
+	while(n--){
+		scanf("%d%d%d",&i,&j,&k);
+		if(j>=l&&k>=l)re.push_back({i,j,k});
+	}
+	sort(re.begin(),re.end(),cmp);
+	cout<<re.size();
+	for(auto it:re)
+		printf("\n%08d %d %d",it.id,it.a,it.b);	
+	return 0;
+}
