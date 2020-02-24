@@ -1,0 +1,70 @@
+#include<bits/stdc++.h>
+#define N 2201
+using namespace std;
+struct node{
+	string str;
+	int num,time,maxTime;
+};
+bool cmp(node n1,node n2){
+	return n1.str<n2.str;
+}
+map<string,int> msi;
+string i_name[N];
+int father[N];
+int findFather(int x){
+	while(x!=father[x])x=father[x];
+	return x;
+}
+void Union(int a,int b){
+	int ka=findFather(a),kb=findFather(b);
+	if(ka!=kb)
+	father[kb]=ka;
+}
+int main(){
+	int i=0,n,j,k,max=0,m,temp;
+	int time[N]={0},call[N]={0};
+	string str1,str2;
+	map<int,node> ans;
+	for(i=1;i<=N-1;i++)father[i]=i;
+	scanf("%d%d",&n,&k);
+	m=n;
+	i=0;
+	while(m--){
+		cin>>str1>>str2>>temp;
+		if(!msi.count(str1)){
+			msi[str1]=++i;
+			i_name[i]=str1;
+		}
+		if(!msi.count(str2)){
+			msi[str2]=++i;
+			i_name[i]=str2;
+		}
+		int i1=msi[str1],i2=msi[str2];
+		call[i1]+=temp;
+		time[i1]+=temp;
+		time[i2]+=temp;
+		Union(i1,i2);
+	}
+	m=i;
+	for(i=1;i<=m;i++){
+		j=findFather(i);
+		ans[j].time+=call[i];
+		ans[j].num++;
+		if(time[i]>ans[j].maxTime){
+			ans[j].maxTime=time[i];
+			ans[j].str=i_name[i];
+		}
+	}
+	vector<node> re;
+	for(auto it=ans.begin();it!=ans.end();it++){
+		if((it->second).time>k&&(it->second).num>2)
+		re.push_back(it->second);
+	}
+	cout<<re.size();
+	if(re.empty())return 0;
+	sort(re.begin(),re.end(),cmp);
+	for(auto it=re.begin();it!=re.end();it++){
+		cout<<endl<<it->str<<' '<<it->num;
+	}
+	return 0;
+}
