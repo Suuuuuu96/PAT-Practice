@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool cmp(const string &s1,const string &s2){
+	return s1+s2<s2+s1;
+}
+int main(){
+	long n,m,k,i,j,g;
+	scanf("%ld",&n);
+	vector<string> re(n);
+	for(i=0;i<=n-1;i++)
+		cin>>re[i];	
+	sort(re.begin(),re.end(),cmp);
+	for(i=0;i<=n-1;i++){
+		m=re[i].size();
+		for(j=0;j<=m-1&&re[i][j]=='0';j++);
+		if(j<=m-1)break;
+	}
+	if(i>n-1){
+		cout<<0;return 0;
+	}
+	for(;j<=m-1;j++)
+		cout<<re[i][j];
+	for(i++;i<=n-1;i++)
+		cout<<re[i];	
+	return 0;
+}
+/*
+3 00 0000 0000
+3 000 000 001
+*/
