@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+#define N 100011
+using namespace std;
+struct node{
+	string Name;
+	int Age,Worth;
+}data[N];
+bool cmp(const node &n1,const node &n2){
+	if(n1.Worth!=n2.Worth)return n1.Worth>n2.Worth;
+		return n1.Age!=n2.Age?n1.Age<n2.Age:n1.Name<n2.Name;
+}
+int main(){
+	int n,m,i,j,k,Amin,Amax,t;
+	cin>>n>>k;
+	for(i=0;i<=n-1;i++)
+		cin>>data[i].Name>>data[i].Age>>data[i].Worth;	
+	sort(data,data+n,cmp);
+	for(i=1;i<=k;i++){
+		cin>>m>>Amin>>Amax;
+		printf("Case #%d:\n",i);
+		int num=0;
+		for(j=0;j<=n-1&&num<m;j++)
+			if(data[j].Age<=Amax&&data[j].Age>=Amin){
+				num++;			
+				cout<<data[j].Name;
+				printf(" %d %d\n",data[j].Age,data[j].Worth);
+			}
+		if(!num) printf("None\n");
+	}
+	return 0;
+}
