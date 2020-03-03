@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n;
+vector<int> a,re;
+bool fun(int i,int j){
+	if(i>=j)return true;
+	int k,t;
+	for(k=i+1;k<=j&&a[k]<a[i];k++);
+	for(t=k;t<=j;t++)
+		if(a[t]<a[i])return false;
+	return fun(i+1,k-1)&&fun(k,j);	
+}
+bool fun2(int i,int j){
+	if(i>=j)return true;
+	int k,t;
+	for(k=i+1;k<=j&&a[k]>=a[i];k++);
+	for(t=k;t<=j;t++)
+		if(a[t]>=a[i])return false;
+	return fun2(i+1,k-1)&&fun2(k,j);	
+}
+void put1(int i,int j){
+	if(i>j)return;
+	if(i==j)re.push_back(a[i]);
+	else{
+		int k,t;
+		for(k=i+1;k<=j&&a[k]<a[i];k++);
+		put1(i+1,k-1);
+		put1(k,j);
+		re.push_back(a[i]);
+	}
+}
+void put2(int i,int j){
+	if(i>j)return;
+	if(i==j)re.push_back(a[i]);
+	else{
+		int k,t;
+		for(k=i+1;k<=j&&a[k]>=a[i];k++);
+		put2(i+1,k-1);
+		put2(k,j);
+		re.push_back(a[i]);
+	}
+}
+int main(){
+	int i,j,k,m;
+	bool f1,f2;
+	scanf("%d",&n);
+	a.resize(n+1);
+	for(i=1;i<=n;i++)
+		scanf("%d",&a[i]);
+	f1=fun(1,n);
+	if(!f1)f2=fun2(1,n);
+	if(f1||f2){
+		cout<<"YES\n";
+		if(f1)put1(1,n);
+		else put2(1,n);
+		printf("%d",re[0]);
+		for(i=1;i<=n-1;i++)printf(" %d",re[i]);
+	}
+	else cout<<"NO";
+	return 0;
+}
