@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+#define N 10001
+using namespace std;
+struct node{
+	string id;
+	int time,flag;
+};
+bool cmp1(node &n1,node &n2){
+	return n1.id!=n2.id?n1.id<n2.id:n1.time<n2.time;
+}
+bool cmp2(node &n1,node &n2){
+	return n1.time<n2.time;
+}
+int main(){	
+	int i,j,k,n,m,hh,mm,ss,cnt[N]={0},Max=0;
+	scanf("%d%d",&n,&k);
+	vector<node> data(n),re;
+	vector<string> id;
+	map<string,int> msi;
+	for(i=0;i<=n-1;i++){
+		char s[10];
+		cin>>data[i].id;
+		scanf("%d:%d:%d %s",&hh,&mm,&ss,s);
+		data[i].time=hh*3600+mm*60+ss;
+		data[i].flag=(s[0]=='i'?1:-1);
+	}
+	sort(data.begin(),data.end(),cmp1);	
+	for(i=0;i<=n-2;i++){
+		if(data[i].flag==1&&data[i+1].flag==-1
+		&&data[i].id==data[i+1].id){
+			msi[data[i].id]+=(data[i+1].time-data[i].time);
+			if(msi[data[i].id]>Max){
+				Max=msi[data[i].id];
+				id.clear();
+				id.push_back(data[i].id);
+			}
+			else if(msi[data[i].id]==Max)
+				id.push_back(data[i].id);			
+			re.push_back(data[i]);
+			re.push_back(data[i+1]);
+			i++;
+		}
+	}
+	sort(re.begin(),re.end(),cmp2);
+	n=re.size();
+	cnt[0]=1;
+	for(i=1;i<=n-1;i++)
+		cnt[i]=cnt[i-1]+re[i].flag;	
+	i=0;
+	while(k--){
+		scanf("%d:%d:%d",&hh,&mm,&ss);
+		j=hh*3600+mm*60+ss;
+		for(;i<=n-1;i++)
+			if(re[i].time>j){
+				cout<<cnt[i-1]<<endl;
+				break;
+			}
+		if(i>n-1)cout<<0<<endl;
+	}
+	sort(id.begin(),id.end());
+	for(i=0;i<id.size();i++)
+		cout<<id[i]<<' ';
+	printf("%02d:%02d:%02d",Max/3600,Max%3600/60,Max%60);
+	return 0;
+}
