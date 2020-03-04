@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+int l[22]={0},r[22]={0},Max=-1,n,root;
+void fun(int root,int key){
+	if(key==n-1)Max=root;
+	if(key>n-1)Max=-1;
+	if(l[root]>=0)fun(l[root],key*2+1);
+	if(r[root]>=0)fun(r[root],key*2+2);
+}
+int main(){
+	int i,j,k,m;
+	char s[3];
+	scanf("%d",&n);
+	root=(n-1)*n/2;
+	for(i=0;i<=n-1;i++){
+		scanf("%s",s);
+		if(s[0]!='-'){
+			sscanf(s,"%d",&j);
+			l[i]=j;
+			root-=j;
+		}else l[i]=-1;		
+		scanf("%s",s);
+		if(s[0]!='-'){
+			sscanf(s,"%d",&j);
+			r[i]=j;
+			root-=j;
+		}else r[i]=-1;		
+	}
+	fun(root,0);
+	if(Max==-1)cout<<"NO"<<" "<<root;
+	else cout<<"YES"<<" "<<Max;	
+	return 0;
+}
