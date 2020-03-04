@@ -42,3 +42,48 @@ int main(){
 	printf("%.1f",(waiting/60.0)/m);
 	return 0;
 }
+
+
+
+
+
+#include<bits/stdc++.h>
+#define N 10011
+using namespace std;
+struct node{
+	int arrive,process,wait,leave;
+	bool operator<(const node &a)const{
+		return leave<=a.leave;//=是有用的 
+	}
+}Time[N];
+bool cmp1(node &a,node &b){
+	return a.arrive<b.arrive;
+}
+int main(){
+	int i,j,k,m,n,hh,mm,ss,waiting=0;
+	set<node> si;
+	scanf("%d%d",&n,&k);
+	for(i=1;i<=k;i++)si.insert({i,0,0,8*3600});
+	//cout<<si.size()<<endl;
+	for(i=1;i<=n;i++){
+		scanf("%d:%d:%d %d",&hh,&mm,&ss,&j);
+		Time[i].arrive=hh*3600+mm*60+ss;
+		Time[i].process=j*60;
+	}
+	sort(Time+1,Time+1+n,cmp1);
+	m=n;
+	for(i=1;i<=n;i++){
+		if(Time[i].arrive>17*3600){
+			m--;continue;
+		}
+		auto it=si.begin();
+		Time[i].wait=max(0,it->leave-Time[i].arrive);			
+		si.erase(it);		
+		waiting+=Time[i].wait;
+		Time[i].leave=Time[i].arrive+Time[i].wait+Time[i].process;
+		si.insert(Time[i]);
+		//printf("%02d:%02d:%02d \n",Time[i].leave/3600,Time[i].leave%3600/60,Time[i].leave%60);
+	}
+	printf("%.1f",(waiting/60.0)/m);
+	return 0;
+}
