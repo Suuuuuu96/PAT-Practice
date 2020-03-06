@@ -1,0 +1,65 @@
+#include<bits/stdc++.h>
+#define K 511
+#define inf 100000
+using namespace std;
+int path[K]={0},Distance[K][K]={0},Cost[K][K]={0};
+void fun(int i){
+	if(path[i]==i)printf("%d ",i);
+	else {
+		fun(path[i]);
+		printf("%d ",i);
+	}
+}
+int main(){
+	int i,j,k,n,m,s,d,n0;	
+	int dis[K]={0},co[K]={0};
+	bool Set[K]={false};
+	vector<int> next[K];
+	scanf("%d%d%d%d",&n,&m,&s,&d);
+	for(i=0;i<K;i++){
+		dis[i]=inf;
+		co[i]=inf;
+		path[i]=i;
+	}
+	while(m--){
+		scanf("%d%d",&i,&j);
+		scanf("%d%d",&Distance[i][j],&Cost[i][j]);
+		Distance[j][i]=Distance[i][j];
+		Cost[j][i]=Cost[i][j];
+		next[i].push_back(j);
+		next[j].push_back(i);
+	}
+	dis[s]=0;
+	co[s]=0;	
+	n0=n;
+	while(n0--){
+		int MinD=inf,MinC=inf;
+		for(i=0;i<=n-1;i++){
+			if(Set[i])continue;
+			if(dis[i]<MinD){
+				MinD=dis[i];
+				MinC=co[i];
+				j=i;
+			}else if(dis[i]==MinD&&MinC>co[i]){
+				MinC=co[i];
+				j=i;
+			}
+		}
+		Set[j]=true;
+		for(auto it=next[j].begin();it!=next[j].end();it++){
+			i=*it;
+			if(Set[i])continue;
+			if(dis[i]>Distance[i][j]+dis[j]){
+				dis[i]=Distance[i][j]+dis[j];
+				path[i]=j;
+				co[i]=Cost[i][j]+co[j];
+			}else if(dis[i]==Distance[i][j]+dis[j]&&co[i]>Cost[i][j]+co[j]){
+				path[i]=j;
+				co[i]=Cost[i][j]+co[j];
+			}
+		}
+	}
+	fun(d);
+	printf("%d %d",dis[d],co[d]);
+	return 0;
+}
