@@ -1,0 +1,70 @@
+#include<bits/stdc++.h>
+#define N 210
+using namespace std;
+struct city{
+	int happiness;
+	string name;
+	vector<int> next;
+}data[N];
+int cost[N][N]={0},Mincost=100000001,Maxhappy=-1,Rom,cost0=0,happy0=0,num=0;
+bool visit[N]={false};
+vector<int> re,temp;
+void fun(int i){
+	if(visit[i])return ;
+	temp.push_back(i);
+	visit[i]=1;
+	if(i==Rom){
+		if(cost0==Mincost)num++;
+		if(cost0<Mincost){
+			num=1;
+			re=temp;
+			Mincost=cost0;
+			Maxhappy=happy0;
+		}else if(cost0==Mincost&&Maxhappy<happy0){			
+			re=temp;
+			Maxhappy=happy0;
+		}else if(cost0==Mincost&&Maxhappy==happy0&&temp.size()<re.size()){
+			re=temp;
+		}
+	}else{
+		for(auto it=data[i].next.begin();it!=data[i].next.end();it++){
+			int j=*it;
+			if(!visit[j]){
+				cost0+=cost[i][j];
+				happy0+=data[j].happiness;
+				fun(j);
+				cost0-=cost[i][j];
+				happy0-=data[j].happiness;
+			}
+		}
+	}
+	temp.pop_back();
+	visit[i]=0;
+}
+int main(){
+	int i,j,k,n,m=0;
+	map<string,int> msi;
+	string temp1,temp2;
+	scanf("%d%d",&n,&k);
+	cin>>data[1].name;
+	msi[data[1].name]=1;
+	for(i=2;i<=n;i++){
+		cin>>data[i].name>>data[i].happiness;
+		msi[data[i].name]=i;
+		if(data[i].name=="ROM")Rom=i;
+	}
+	while(k--){
+		cin>>temp1>>temp2>>m;
+		i=msi[temp1];
+		j=msi[temp2];
+		data[i].next.push_back(j);
+		data[j].next.push_back(i);
+		cost[i][j]=cost[j][i]=m;
+	}
+	fun(1);
+	n=re.size();
+	printf("%d %d %d %d\n",num,Mincost,Maxhappy,Maxhappy/(n-1));
+	cout<<data[re[0]].name;
+	for(i=1;i<n;i++)cout<<"->"<<data[re[i]].name;
+	return 0;
+}
