@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+#define N 100100
+using namespace std;
+vector<int> data[N];
+double r,p,sum=0;
+void fun(int root=0){
+	if(data[root][0]==0)sum+=data[root][1]*p;
+	else if(data[root][0]>0){
+		double temp=p;
+		p=p*(100+r)/100;
+		for(auto it=data[root].begin()+1;it!=data[root].end();it++)
+			fun(*it);
+		p=temp;
+	}
+}
+int main(){
+	int i,n,j,k,m;	
+	scanf("%d%lf%lf",&n,&p,&r);	
+	for(i=0;i<n;i++){
+		scanf("%d%d",&k,&m);
+		data[i].push_back(k);
+		data[i].push_back(m);
+		for(j=1;j<k;j++){
+			scanf("%d",&m);
+			data[i].push_back(m);
+		}
+	}
+	fun();
+	printf("%.1lf",sum);
+	return 0;
+}
