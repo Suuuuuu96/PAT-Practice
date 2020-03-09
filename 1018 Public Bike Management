@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+#define N 510
+using namespace std;
+int Cmax,n,sp,m;
+struct node{
+	int bike,change;
+	vector<int> Next;
+}data[N];
+int Time[N][N]={0};
+bool visit[N]={false};
+int minTime=100000001,tempTime=0,send,back;
+vector<int> re,temp;
+void fun(int i){
+	if(visit[i])return ;
+	temp.push_back(i);
+	if(i==0){
+		int tempSend=100000001,tempBack=0;
+		int sum=0;
+		for(int j=temp.size()-2;j>=0;j--){
+			sum+=(data[temp[j]].bike-Cmax/2);
+			if(sum<tempSend)tempSend=sum;
+		}
+		tempSend=-min(tempSend,0);
+		tempBack=tempSend+sum;
+		if(tempTime<minTime||tempTime==minTime&&send>tempSend
+		||tempSend==send&&send==tempSend&&back>tempBack){
+			minTime=tempTime;
+			re=temp;
+			send=tempSend;
+			back=tempBack;
+		}		
+	}else{
+		visit[i]=true;
+		for(auto it=data[i].Next.begin();it!=data[i].Next.end();it++){
+			int j=*it;
+			tempTime+=Time[i][j];			
+			fun(j);
+			tempTime-=Time[i][j];
+		}
+		visit[i]=false;
+	}
+	temp.pop_back();
+}
+int main(){
+	int i,j,k,t;	
+	scanf("%d%d%d%d",&Cmax,&n,&sp,&m);	
+	for(i=1;i<=n;i++){
+		scanf("%d",&data[i].bike);
+	}
+	for(i=1;i<=m;i++){
+		scanf("%d%d",&j,&k);
+		scanf("%d",&Time[j][k]);
+		Time[k][j]=Time[j][k];
+		data[j].Next.push_back(k);
+		data[k].Next.push_back(j);
+	}
+	fun(sp);
+	n=re.size();
+	printf("%d %d",send,re[n-1]);
+	for(i=n-2;i>=0;i--)printf("->%d",re[i]);
+	printf(" %d",back);
+	return 0;
+}
