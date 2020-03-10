@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+#define N 1010
+using namespace std;
+int main(){
+	int n,i,m,k,j,l,t,sum;
+	vector<int> a[N];
+	scanf("%d%d",&n,&l);
+	for(i=1;i<=n;i++){
+		scanf("%d",&j);
+		while(j--){
+			scanf("%d",&k);
+			a[k].push_back(i);
+		}
+	}
+	scanf("%d",&k);
+	while(k--){
+		sum=0;
+		scanf("%d",&j);
+		queue<int> q;
+		q.push(j);
+		bool visit[N]={false};
+		visit[j]=true;
+		for(i=1;i<=l;i++){
+			m=q.size();			
+			for(t=1;t<=m;t++){
+				for(auto it=a[q.front()].begin();it!=a[q.front()].end();it++)
+					if(!visit[*it]){
+						q.push(*it);
+						visit[*it]=true;
+						sum++;
+					}
+				q.pop();
+			}			
+		}
+		cout<<sum<<endl;
+	}
+	return 0;
+}
