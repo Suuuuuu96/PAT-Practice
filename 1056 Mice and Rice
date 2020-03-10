@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+#define N 1010
+using namespace std;
+struct mice{
+	int weight,rank;
+}data[N];
+int main(){
+	int n,i,m,k,j,np,ng,index=0,x=0;
+	int play[N]={0};//set<int> s;
+	scanf("%d%d",&np,&ng);
+	for(i=0;i<=np-1;i++)
+		scanf("%d",&data[i].weight);
+	for(i=0;i<=np-1;i++){
+		scanf("%d",&play[i]);
+	}	
+	for(n=np;n!=1;n=x){//n剩下的 
+		x=(n+ng-1)/ng;
+		k=0;
+		int Max=-1;
+		for(i=0;i<=np-1;i++){
+			j=play[i];
+			if(data[j].rank)continue;
+			k++;			
+			data[j].rank=x+1;
+			if(data[j].weight>Max){
+				index=j;
+				Max=data[j].weight;
+			}
+			if(k==ng){
+				k=0;
+				Max=-1;
+				data[index].rank=0;
+			}
+		}
+		data[index].rank=0;	
+	}
+	data[index].rank=1;
+	cout<<data[0].rank;
+	for(i=1;i<=np-1;i++)
+		cout<<" "<<data[i].rank;
+	return 0;
+}
