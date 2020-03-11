@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+#define N 40011
+#define K 2511
+using namespace std;
+vector<int> re[K];
+char name[N][5];
+bool cmp(const vector<int> &a,const vector<int> &b){
+	return strcmp(name[a[0]],name[b[0]])<0;
+}
+vector<int> temp[N];
+int main(){
+	int n,m,i,j,k;
+	scanf("%d%d",&n,&k);
+	for(i=1;i<=n;i++){
+		temp[i].push_back(i);
+		scanf("%s %d",name[i],&m);
+		while(m--){
+			scanf("%d",&j);
+			temp[i].push_back(j);
+		}
+	}
+	sort(temp+1,temp+1+n,cmp);
+	for(i=1;i<=n;i++)
+		for(j=1;j<=temp[i].size()-1;j++)
+			re[temp[i][j]].push_back(temp[i][0]);	
+	for(i=1;i<=k;i++){
+		printf("%d ",i);
+		if(re[i].empty()){
+			printf("0\n");continue;
+		}
+		printf("%d\n",re[i].size());
+		for(j=0;j<re[i].size();j++)
+			printf("%s\n",name[re[i][j]]);
+	}	
+	return 0;
+}
