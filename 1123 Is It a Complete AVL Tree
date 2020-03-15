@@ -1,0 +1,79 @@
+#include<bits/stdc++.h>
+#define N 22
+using namespace std;
+struct node{
+	int val;
+	node *l,*r;
+	node(int _val):val(_val),l(NULL),r(NULL){}
+};
+int gethigh(node* root){
+	if(!root)return 0;
+	else return 1+max(gethigh(root->r),gethigh(root->l));
+}
+node* left(node* root){
+	node* temp=root->r;
+	root->r=temp->l;
+	temp->l=root;
+	return temp;
+}
+node* right(node* root){
+	node* temp=root->l;
+	root->l=temp->r;
+	temp->r=root;
+	return temp;
+}
+node* right_left(node* root){
+	root->r=right(root->r);
+	return left(root);
+}
+node* left_right(node* root){
+	root->l=left(root->l);
+	return right(root);
+}
+node* insertNode(node* root,int x){
+	if(!root)root=new node(x);
+	else if(x>root->val){
+		root->r=insertNode(root->r,x);
+		if(gethigh(root->r)-gethigh(root->l)>=2){
+			if(x>root->r->val)root=left(root);
+			else root=right_left(root);
+		}
+	}else{
+		root->l=insertNode(root->l,x);
+		if(gethigh(root->l)-gethigh(root->r)>=2){
+			if(x<root->l->val)root=right(root);
+			else root=left_right(root);
+		}
+	}
+	return root;
+}
+int n,maxn=0;
+void isComplete(node* root,int x=1){
+	if(!root)return ;
+	if(x>maxn)maxn=x;
+	isComplete(root->l,2*x);
+	isComplete(root->r,2*x+1);
+}
+int main(){
+	int i,j,k,m,x;
+	node *root=NULL;
+	scanf("%d",&n);
+	for(i=1;i<=n;i++){
+		scanf("%d",&j);
+		root=insertNode(root,j);
+	}
+	queue<node*> q;
+	q.push(root);
+	cout<<root->val;
+	while(!q.empty()){
+		node *it=q.front();
+		if(it->l)q.push(it->l);
+		if(it->r)q.push(it->r);
+		if(it!=root)cout<<' '<<it->val;
+		q.pop();
+	}
+	isComplete(root);
+	if(n==maxn)cout<<"\nYES";
+	else cout<<"\nNO";
+	return 0;
+}
