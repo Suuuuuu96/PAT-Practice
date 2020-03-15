@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+#define K 1010
+#define N 22
+using namespace std;
+struct cus{
+	int processing,serve,leave;
+}customer[K];
+struct win{
+	int nextTime;
+	vector<int> a;
+}window[N];
+int main(){
+	int i,j,k,n,m,q,x,y;
+	scanf("%d%d%d%d",&n,&m,&k,&q);
+	for(i=1;i<=k;i++)
+	scanf("%d",&customer[i].processing);
+	for(y=1,j=1;j<=n&&y<=k;j++,y++){
+		window[j].a.push_back(y);
+		customer[y].serve=8*60;		
+		window[j].nextTime=customer[y].leave=
+		customer[y].serve+customer[y].processing;
+	}
+	
+	for(i=2;i<=m&&y<=k;i++)
+		for(j=1;j<=n&&y<=k;j++,y++){
+			x=*(window[j].a.end()-1);
+			window[j].a.push_back(y);
+			customer[y].serve=customer[x].leave;
+			customer[y].leave=
+			customer[y].serve+customer[y].processing;
+		}
+	for(;y<=k;y++){
+		int minn=0x3f3f3f3f,index;
+		for(j=n;j>=1;j--)
+			if(window[j].nextTime<=minn){
+				minn=window[j].nextTime;index=j;
+		}
+		x=*(window[index].a.end()-1);
+		window[index].a.push_back(y);
+		customer[y].serve=customer[x].leave;
+		customer[y].leave=
+		customer[y].serve+customer[y].processing;
+		window[index].a.erase(window[index].a.begin());
+		window[index].nextTime=customer[*window[index].a.begin()].leave;
+	}
+	for(i=1;i<=q;i++){
+		scanf("%d",&j);
+		if(customer[j].serve>=17*60)
+			printf("Sorry\n");
+		else
+			printf("%02d:%02d\n",customer[j].leave/60,customer[j].leave%60);
+	}	
+	return 0;
+}
+/*
+2 2 7 7
+1 1 36 1 534 3 2
+1 2 3 4 5 6 7
+
+
+*/
