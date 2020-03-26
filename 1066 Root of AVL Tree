@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node{
+	int val;
+	node *l,*r;
+	node(int _val):val(_val),l(NULL),r(NULL){}
+};
+int getHigh(node *root){
+	if(!root)return 0;
+	else 
+		return max(getHigh(root->l),getHigh(root->r))+1;
+}
+node *Left(node *root){
+	node *temp=root->r;
+	root->r=temp->l;
+	temp->l=root;
+	return temp;
+}
+node *Right(node *root){
+	node *temp=root->l;
+	root->l=temp->r;
+	temp->r=root;
+	return temp;
+}
+node *RightLeft(node *root){
+	root->r=Right(root->r);
+	return Left(root);
+}
+node *LeftRight(node *root){
+	root->l=Left(root->l);
+	return Right(root);
+}
+node *putin(node *root,int x){
+	if(!root){
+		root=new node(x);
+		return root;
+	}
+	if(x>root->val){
+		root->r=putin(root->r,x);
+		if(getHigh(root->r)-getHigh(root->l)>=2){
+			if(x>root->r->val)root=Left(root);
+			else root=RightLeft(root);
+		}
+	}else{
+		root->l=putin(root->l,x);
+		if(getHigh(root->l)-getHigh(root->r)>=2){
+			if(x<root->l->val)root=Right(root);
+			else root=LeftRight(root);
+		}
+	}
+	return root;
+}
+int main(){
+	int i,j,k,n,m;
+	node *root=NULL;
+	scanf("%d",&n);
+	while(n--){
+		scanf("%d",&i);
+		root=putin(root,i);
+	}
+	cout<<root->val;
+	return 0;
+}
